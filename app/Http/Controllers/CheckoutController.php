@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
-use App\Models\Product;
+use Illuminate\Support\Facades\Session;
+use App\Models\Perfume; // Use Perfume model, not Product
 
 class CheckoutController extends Controller
 {
@@ -13,8 +13,8 @@ class CheckoutController extends Controller
      */
     public function index(Request $request)
     {
-        // Get cart from cookie
-        $cart = json_decode(Cookie::get('cart', '[]'), true);
+        // Get cart from SESSION (not cookie)
+        $cart = Session::get('cart', []);
         
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty');
@@ -25,12 +25,10 @@ class CheckoutController extends Controller
         $subtotal = 0;
         
         foreach ($cart as $item) {
-            $product = Product::find($item['product_id']);
+            $product = Perfume::with('brand')->find($item['product_id']); // Use Perfume
             if ($product) {
-                $price = $item['size'] === 'decant' ? 
-                        ($product->decant_price ?? $product->price * 0.3) : 
-                        $product->current_price;
-                
+                // Use the price already stored in cart (from add method)
+                $price = $item['price'];
                 $itemTotal = $price * $item['quantity'];
                 $subtotal += $itemTotal;
                 
@@ -70,8 +68,8 @@ class CheckoutController extends Controller
             'notes' => 'nullable|string|max:500'
         ]);
         
-        // Get cart from cookie
-        $cart = json_decode(Cookie::get('cart', '[]'), true);
+        // Get cart from session
+        $cart = Session::get('cart', []);
         
         if (empty($cart)) {
             return back()->with('error', 'Your cart is empty');
@@ -80,11 +78,11 @@ class CheckoutController extends Controller
         // Here you would:
         // 1. Create order in database
         // 2. Process payment (if M-Pesa)
-        // 3. Clear cart cookie
+        // 3. Clear cart session
         // 4. Send confirmation SMS/email
         
-        // For now, we'll just clear cart and redirect to success
-        Cookie::queue(Cookie::forget('cart'));
+        // For now, clear the cart and redirect to success
+        Session::forget('cart');
         
         return redirect()->route('checkout.success')
                         ->with('success', 'Order placed successfully!');

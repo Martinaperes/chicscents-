@@ -8,6 +8,13 @@
     <div class="h-11 w-full bg-ivory/90 sticky top-0 z-50 backdrop-blur-md"></div>
 
     <main class="pb-32">
+        @if(session('error'))
+    <div class="max-w-7xl mx-auto px-8 mb-4">
+        <div class="bg-red-100 text-red-700 p-4 rounded-sm text-sm">
+            {{ session('error') }}
+        </div>
+    </div>
+@endif
         <!-- Header -->
         <div class="px-8 py-12">
             <div class="max-w-7xl mx-auto">
@@ -103,11 +110,9 @@
                                         </div>
                                         <p class="text-xs text-slate-400 mt-1">Inclusive of all taxes</p>
                                     </div>
-
-                                   <a href="{{ route('checkout.index') }}" class="block w-full">
-    <button class="w-full bg-gold-deep text-white py-4 rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition mt-6">
-        Proceed to Checkout
-    </button>
+<a href="{{ route('checkout.index') }}" 
+   class="block w-full bg-gold-deep text-white py-4 rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition text-center mt-6">
+    Proceed to Checkout
 </a>
 
                                     <!-- Payment Icons -->

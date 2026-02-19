@@ -1,7 +1,9 @@
 <!-- Recently Viewed Products -->
 @php
+    use App\Models\Perfume;
+
     $recentIds = json_decode(Cookie::get('recent_products', '[]'), true);
-    $recentProducts = !empty($recentIds) ? App\Models\Product::whereIn('id', $recentIds)->get() : collect([]);
+    $recentProducts = !empty($recentIds) ? Perfume::whereIn('id', $recentIds)->get() : collect([]);
 @endphp
 
 @if($recentProducts->count() > 0)
