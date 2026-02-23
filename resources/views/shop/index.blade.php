@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Top Spacer -->
-    <div class="h-11 w-full bg-ivory/90 sticky top-0 z-50 backdrop-blur-md"></div>
+    <div class="h-11 w-full bg-ivory/90"></div>
     
     <!-- Header -->
     <x-header-home />
