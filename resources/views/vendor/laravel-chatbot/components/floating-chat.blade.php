@@ -16,19 +16,33 @@
         }
         .lc-fc-button:hover { filter: brightness(1.05); }
         .lc-fc-panel {
-            position: absolute; right: 0; bottom: 70px; width: 320px; max-height: 420px;
-            background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;
+            position: absolute; right: 0; bottom: 70px; width: 320px; 
+            max-height: calc(100vh - 100px);
+            background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; 
             box-shadow: 0 20px 40px rgba(0,0,0,.12);
             display: none;
+            flex-direction: column;
+            overflow: hidden;
         }
         .lc-fc-header {
-            padding: 10px 12px; background: linear-gradient(135deg, #c5a059 0%, #764ba2 100%); color: #fff;
+            padding: 12px; background: linear-gradient(135deg, #c5a059 0%, #764ba2 100%); color: #fff;
             font-weight: 600; font-size: 14px;
+            flex-shrink: 0;
         }
-        .lc-fc-body { background: #f9fafb; height: 300px; overflow: auto; padding: 10px; }
-        .lc-fc-footer { padding: 8px; border-top: 1px solid #eee; background: #fff; }
-        .lc-fc-input { width: 100%; padding: 9px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; }
-        .lc-fc-send { margin-top: 6px; width: 100%; padding: 9px 12px; border: none; border-radius: 8px; background: #c5a059; color: #fff; cursor: pointer; }
+        .lc-fc-body { 
+            background: #f9fafb; 
+            height: 300px; /* Default height */
+            max-height: 40vh; /* Responsive max height */
+            overflow-y: auto; 
+            padding: 10px;
+            flex-grow: 1;
+        }
+        .lc-fc-footer { 
+            padding: 12px; border-top: 1px solid #eee; background: #fff; 
+            flex-shrink: 0;
+        }
+        .lc-fc-input { width: 100%; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
+        .lc-fc-send { margin-top: 8px; width: 100%; padding: 10px 12px; border: none; border-radius: 8px; background: #c5a059; color: #fff; cursor: pointer; font-weight: 500; }
         .lc-fc-msg { display: flex; margin-bottom: 8px; }
         .lc-fc-msg .bubble { max-width: 78%; padding: 8px 10px; border-radius: 14px; font-size: 13px; line-height: 1.4; }
         .lc-fc-msg.user { justify-content: flex-end; }
@@ -92,8 +106,8 @@
             toggle.addEventListener('click', function(e){
                 e.preventDefault();
                 e.stopPropagation();
-                const open = panel.style.display === 'block';
-                panel.style.display = open ? 'none' : 'block';
+                const open = panel.style.display === 'flex';
+                panel.style.display = open ? 'none' : 'flex';
                 if (!open) input.focus();
             });
 
