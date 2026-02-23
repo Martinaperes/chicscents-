@@ -156,7 +156,7 @@
                                         
                                         <label class="flex items-center gap-3 cursor-pointer">
                                             <input type="radio" name="delivery_method" value="pickup" class="text-gold-deep focus:ring-gold-deep">
-                                            <span class="text-sm">Pick Up Mtaani Agent (Free)</span>
+                                            <span class="text-sm">Pick Up Mtaani Agent </span>
                                         </label>
                                     </div>
                                 </div>

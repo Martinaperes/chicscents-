@@ -51,5 +51,7 @@ def git_sync():
         # But if we want to ensure it goes up after each commit:
         run_command("git push")
 
+        
+
 if __name__ == "__main__":
     git_sync()

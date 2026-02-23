@@ -20,6 +20,7 @@ class Perfume extends Model
         'description',
         'short_description',
         'price',
+        'decant_price',
         'discount_price',
         'discount_ends_at',
         'type',
