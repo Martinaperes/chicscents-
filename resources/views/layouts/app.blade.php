@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/jpg" href="{{ asset('images/hero/chicscentslogo.jpg') }}">
+    <link rel="icon" type="image/jpg" href="{{ asset('images/hero/chicsentslogo.jpg') }}">
     <title>@yield('title', 'ScentCepts | Luxury Fragrances')</title>
     
     <!-- Tailwind CSS -->
