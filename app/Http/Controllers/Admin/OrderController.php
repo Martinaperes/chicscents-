@@ -49,16 +49,4 @@ class OrderController extends Controller
 
         return back()->with('success', 'Order state has been synchronized.');
     }
-
-    /**
-     * Display settled payments (orders where payment_status != pending).
-     */
-    public function payments()
-    {
-        $payments = Order::where('payment_status', '!=', 'pending')
-            ->orderBy('updated_at', 'desc')
-            ->paginate(15);
-            
-        return view('admin.payments.index', compact('payments'));
-    }
 }
