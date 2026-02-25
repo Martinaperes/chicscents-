@@ -63,12 +63,18 @@
                         <p class="text-[9px] font-black uppercase tracking-widest mt-1 {{ $order->payment_status === 'paid' ? 'text-adm-success' : 'text-adm-warning' }}">{{ $order->payment_status }}</p>
                     </td>
                     <td class="px-8 py-6 text-center">
-                        <span class="inline-flex items-center px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm
-                            {{ $order->order_status === 'pending' ? 'bg-adm-warning text-white' : '' }}
-                            {{ $order->order_status === 'processing' ? 'bg-adm-accent text-white' : '' }}
-                            {{ $order->order_status === 'shipped' ? 'bg-adm-info text-white' : '' }}
-                            {{ $order->order_status === 'delivered' ? 'bg-adm-success text-white' : '' }}
-                            {{ $order->order_status === 'cancelled' ? 'bg-adm-error text-white' : '' }}">
+                        <span class="inline-flex items-center px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm border
+                            {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning/10 text-adm-warning border-adm-warning/20' : '' }}
+                            {{ $order->order_status === 'processing' ? 'bg-adm-accent/10 text-adm-accent border-adm-accent/20' : '' }}
+                            {{ $order->order_status === 'shipped' ? 'bg-adm-info/10 text-adm-info border-adm-info/20' : '' }}
+                            {{ $order->order_status === 'delivered' ? 'bg-adm-success/10 text-adm-success border-adm-success/20' : '' }}
+                            {{ $order->order_status === 'cancelled' ? 'bg-adm-error/10 text-adm-error border-adm-error/20' : '' }}">
+                            <span class="w-1.5 h-1.5 rounded-full mr-2 
+                                {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning' : '' }}
+                                {{ $order->order_status === 'processing' ? 'bg-adm-accent' : '' }}
+                                {{ $order->order_status === 'shipped' ? 'bg-adm-info' : '' }}
+                                {{ $order->order_status === 'delivered' ? 'bg-adm-success' : '' }}
+                                {{ $order->order_status === 'cancelled' ? 'bg-adm-error' : '' }}"></span>
                             {{ $order->order_status }}
                         </span>
                     </td>
