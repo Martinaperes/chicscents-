@@ -10,9 +10,23 @@
             <span class="material-symbols-outlined text-sm">arrow_back</span>
             Return to Dispatch
         </a>
-        <h3 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">
-            REF-{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}
-        </h3>
+        <div class="flex items-center gap-3">
+            <h3 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">
+                REF-{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}
+            </h3>
+            <span class="inline-flex items-center px-4 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-2
+                {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning/10 text-adm-warning border-adm-warning/20' : '' }}
+                {{ $order->order_status === 'processing' ? 'bg-adm-accent/10 text-adm-accent border-adm-accent/20' : '' }}
+                {{ $order->order_status === 'shipped' ? 'bg-adm-info/10 text-adm-info border-adm-info/20' : '' }}
+                {{ $order->order_status === 'delivered' ? 'bg-adm-success/10 text-adm-success border-adm-success/20' : '' }}
+                {{ $order->order_status === 'cancelled' ? 'bg-adm-error/10 text-adm-error border-adm-error/20' : '' }}">
+                {{ $order->order_status }}
+            </span>
+            <span class="inline-flex items-center px-4 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-2
+                {{ $order->payment_status === 'paid' ? 'bg-adm-success/10 text-adm-success border-adm-success/20' : 'bg-adm-warning/10 text-adm-warning border-adm-warning/20' }}">
+                {{ $order->payment_status }} Payment
+            </span>
+        </div>
     </div>
 
     <div class="flex items-center gap-4">
@@ -127,7 +141,7 @@
 
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Escrow / Payment State</label>
-                    <select name="payment_status" class="w-full bg-slate-100 border-none rounded-2xl px-5 py-4 text-xs font-bold text-slate-700/50 appearance-none cursor-not-allowed" disabled>
+                    <select name="payment_status" class="w-full bg-slate-50 border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold text-slate-700 focus:ring-4 focus:ring-adm-accent/10 focus:border-adm-accent transition-all appearance-none cursor-pointer">
                         <option value="pending" {{ $order->payment_status === 'pending' ? 'selected' : '' }}>Unverified / Pending</option>
                         <option value="paid" {{ $order->payment_status === 'paid' ? 'selected' : '' }}>Success / Verified Fund</option>
                         <option value="failed" {{ $order->payment_status === 'failed' ? 'selected' : '' }}>Allocation Failure</option>
