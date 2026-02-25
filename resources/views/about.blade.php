@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Our Story | Chic Scents')
+@section('title', 'Our Story | ScentCepts')
 
 @section('content')
 <main class="pb-32">
@@ -32,7 +32,7 @@
                 Making Luxury Accessible <br/>to Every Kenyan
             </h2>
             <p class="text-slate-600 leading-relaxed text-lg">
-                At Chic Scents, we believe that luxury fragrances shouldn't be a luxury reserved for the few. 
+                At ScentCepts, we believe that luxury fragrances shouldn't be a luxury reserved for the few. 
                 We're on a mission to bring world-class perfumes to Kenya, making them accessible through our 
                 innovative decant system. Try before you commit, and find your signature scent without breaking the bank.
             </p>
@@ -50,7 +50,7 @@
                     <span class="text-[10px] uppercase tracking-[0.3em] text-gold-deep font-semibold mb-4 block">How We Started</span>
                     <h2 class="text-3xl md:text-4xl serif-heading font-light mb-6">A Passion for <span class="italic text-gold-deep">Scent</span></h2>
                     <p class="text-slate-600 leading-relaxed mb-6">
-                        Chic Scents was born from a simple observation: perfume lovers in Kenya deserved better. 
+                        ScentCepts was born from a simple observation: perfume lovers in Kenya deserved better. 
                         We saw how difficult it was to access authentic luxury fragrances, and how expensive it was 
                         to commit to a full bottle without ever smelling it first.
                     </p>
