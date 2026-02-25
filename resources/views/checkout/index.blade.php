@@ -100,9 +100,10 @@
                                 Delivery Information
                             </h2>
                             
-                            <div class="space-y-4">
+                            <div class="space-y-5">
+                                <!-- Address -->
                                 <div>
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Delivery Address *</label>
+                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Street Address *</label>
                                     <input type="text" name="address" required 
                                            class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
                                            placeholder="Street address, building, estate"
@@ -111,67 +112,176 @@
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                                <!-- Delivery Zone Choice -->
+                                <div>
+                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-3">Delivery Location *</label>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <!-- CBD Option -->
+                                        <label id="zone-cbd-label" 
+                                               class="flex items-start gap-3 cursor-pointer border-2 rounded-sm p-4 transition-all duration-200 border-gold-deep bg-gold-deep/5">
+                                            <input type="radio" name="delivery_zone" value="cbd" id="zone_cbd"
+                                                   class="mt-0.5 text-gold-deep focus:ring-gold-deep" checked>
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-sm font-medium">Nairobi CBD</span>
+                                                    <span class="text-xs font-semibold text-gold-deep bg-gold-deep/10 px-2 py-0.5 rounded-full">Ksh 100</span>
+                                                </div>
+                                                <p class="text-xs text-slate-500 mt-1">Direct doorstep delivery within Nairobi CBD. Fast &amp; reliable.</p>
+                                            </div>
+                                        </label>
+
+                                        <!-- Pickup Mtaani Option -->
+                                        <label id="zone-mtaani-label"
+                                               class="flex items-start gap-3 cursor-pointer border-2 rounded-sm p-4 transition-all duration-200 border-rose-soft hover:border-gold-deep/40">
+                                            <input type="radio" name="delivery_zone" value="mtaani" id="zone_mtaani"
+                                                   class="mt-0.5 text-gold-deep focus:ring-gold-deep">
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between">
+                                                    <span class="text-sm font-medium">Other Location</span>
+                                                    <span class="text-xs font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">Via Pickup Mtaani</span>
+                                                </div>
+                                                <p class="text-xs text-slate-500 mt-1">Delivered to a Pickup Mtaani agent near you. Fee varies by agent.</p>
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    {{-- Hidden field so the zone is always submitted --}}
+                                    <input type="hidden" name="delivery_zone" id="delivery_zone_hidden" value="{{ old('delivery_zone', 'cbd') }}">
+                                    @error('delivery_zone')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <!-- CBD Fields (city auto-filled) -->
+                                <div id="cbdFields">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">City/Town *</label>
+                                            <input type="text" name="city" id="city_input" required 
+                                                   class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-slate-50"
+                                                   value="Nairobi" readonly>
+                                            @error('city')
+                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">County *</label>
+                                            <input type="text" name="county" id="county_input"
+                                                   class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-slate-50"
+                                                   value="Nairobi" readonly>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-gold-deep mt-2 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm">info</span>
+                                        Nairobi CBD delivery fee: <strong class="ml-1">Ksh 100</strong>
+                                    </p>
+                                </div>
+
+                                <!-- Pickup Mtaani Fields (hidden by default) -->
+                                <div id="mtaaniFields" class="hidden space-y-4">
+                                    <!-- Location text input -->
                                     <div>
-                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">City/Town *</label>
-                                        <input type="text" name="city" required 
+                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Your Location / Area *</label>
+                                        <input type="text" name="mtaani_location" id="mtaani_location_input"
                                                class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                               value="{{ old('city') }}">
-                                        @error('city')
+                                               placeholder="e.g. Westlands, Thika, Mombasa Road..."
+                                               value="{{ old('mtaani_location') }}">
+                                        @error('mtaani_location')
                                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    
-                                    <div>
-                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">County *</label>
-                                        <select name="county" required 
-                                                class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition">
-                                            <option value="">Select County</option>
-                                            <option value="Nairobi">Nairobi</option>
-                                            <option value="Mombasa">Mombasa</option>
-                                            <option value="Kisumu">Kisumu</option>
-                                            <option value="Nakuru">Nakuru</option>
-                                            <option value="Kiambu">Kiambu</option>
-                                            <option value="Machakos">Machakos</option>
-                                            <option value="Uasin Gishu">Uasin Gishu</option>
-                                            <option value="Kajiado">Kajiado</option>
-                                            <!-- Add more counties -->
+
+                                    <!-- City &amp; County for non-CBD -->
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">City/Town *</label>
+                                            <input type="text" name="city_mtaani" id="city_mtaani_input"
+                                                   class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                                   placeholder="e.g. Nairobi, Thika, Mombasa"
+                                                   value="{{ old('city_mtaani') }}">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">County *</label>
+                                            <select name="county_mtaani" id="county_mtaani_input"
+                                                    class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition">
+                                                <option value="">Select County</option>
+                                                <option value="Nairobi" {{ old('county_mtaani') == 'Nairobi' ? 'selected' : '' }}>Nairobi</option>
+                                                <option value="Mombasa" {{ old('county_mtaani') == 'Mombasa' ? 'selected' : '' }}>Mombasa</option>
+                                                <option value="Kisumu" {{ old('county_mtaani') == 'Kisumu' ? 'selected' : '' }}>Kisumu</option>
+                                                <option value="Nakuru" {{ old('county_mtaani') == 'Nakuru' ? 'selected' : '' }}>Nakuru</option>
+                                                <option value="Kiambu" {{ old('county_mtaani') == 'Kiambu' ? 'selected' : '' }}>Kiambu</option>
+                                                <option value="Machakos" {{ old('county_mtaani') == 'Machakos' ? 'selected' : '' }}>Machakos</option>
+                                                <option value="Uasin Gishu" {{ old('county_mtaani') == 'Uasin Gishu' ? 'selected' : '' }}>Uasin Gishu</option>
+                                                <option value="Kajiado" {{ old('county_mtaani') == 'Kajiado' ? 'selected' : '' }}>Kajiado</option>
+                                                <option value="Murang'a" {{ old('county_mtaani') == "Murang'a" ? 'selected' : '' }}>Murang'a</option>
+                                                <option value="Nyeri" {{ old('county_mtaani') == 'Nyeri' ? 'selected' : '' }}>Nyeri</option>
+                                                <option value="Meru" {{ old('county_mtaani') == 'Meru' ? 'selected' : '' }}>Meru</option>
+                                                <option value="Kilifi" {{ old('county_mtaani') == 'Kilifi' ? 'selected' : '' }}>Kilifi</option>
+                                                <option value="Kwale" {{ old('county_mtaani') == 'Kwale' ? 'selected' : '' }}>Kwale</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pickup Mtaani Agent Selector -->
+                                    <div class="rounded-sm border border-rose-soft bg-slate-50 p-4">
+                                        <!-- Pickup Mtaani branding -->
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-white text-sm">store</span>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-semibold text-slate-700">Pickup Mtaani Agent</p>
+                                                <p class="text-xs text-slate-500">Select the agent nearest to you</p>
+                                            </div>
+                                        </div>
+
+                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Pickup Mtaani Agent *</label>
+                                        <select name="pickup_location" id="pickupAgentSelect"
+                                                class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-white">
+                                            <option value="">-- Choose an agent near you --</option>
+                                            <optgroup label="Nairobi">
+                                                <option value="Westlands - Sarit Centre | 150" data-fee="150">Westlands – Sarit Centre (Ksh 150)</option>
+                                                <option value="Kilimani - Adams Arcade | 150" data-fee="150">Kilimani – Adams Arcade (Ksh 150)</option>
+                                                <option value="Eastlands - T-Mall | 150" data-fee="150">Eastlands – T-Mall (Ksh 150)</option>
+                                                <option value="Kasarani - Roasters Mall | 150" data-fee="150">Kasarani – Roasters Mall (Ksh 150)</option>
+                                                <option value="Langata - T-Mall | 150" data-fee="150">Langata – T-Mall (Ksh 150)</option>
+                                                <option value="Embakasi - Imara Daima | 150" data-fee="150">Embakasi – Imara Daima (Ksh 150)</option>
+                                            </optgroup>
+                                            <optgroup label="Kiambu / Thika Road">
+                                                <option value="Thika - Makongeni | 200" data-fee="200">Thika – Makongeni (Ksh 200)</option>
+                                                <option value="Ruiru - Stage | 200" data-fee="200">Ruiru – Stage (Ksh 200)</option>
+                                                <option value="Juja - Stage | 200" data-fee="200">Juja – Stage (Ksh 200)</option>
+                                                <option value="Kiambu Town | 200" data-fee="200">Kiambu Town (Ksh 200)</option>
+                                            </optgroup>
+                                            <optgroup label="Mombasa">
+                                                <option value="Mombasa CBD - Moi Avenue | 350" data-fee="350">Mombasa CBD – Moi Avenue (Ksh 350)</option>
+                                                <option value="Mombasa - Nyali Bridge | 350" data-fee="350">Mombasa – Nyali Bridge (Ksh 350)</option>
+                                            </optgroup>
+                                            <optgroup label="Nakuru">
+                                                <option value="Nakuru Town - Westside Mall | 300" data-fee="300">Nakuru Town – Westside Mall (Ksh 300)</option>
+                                            </optgroup>
+                                            <optgroup label="Upcountry">
+                                                <option value="Kisumu - Mega Plaza | 400" data-fee="400">Kisumu – Mega Plaza (Ksh 400)</option>
+                                                <option value="Eldoret - Zion Mall | 400" data-fee="400">Eldoret – Zion Mall (Ksh 400)</option>
+                                                <option value="Meru Town | 400" data-fee="400">Meru Town (Ksh 400)</option>
+                                            </optgroup>
                                         </select>
-                                        @error('county')
+                                        @error('pickup_location')
                                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                         @enderror
+
+                                        <!-- Delivery fee indicator per agent -->
+                                        <div id="agentFeeInfo" class="hidden mt-3 flex items-center gap-2 text-sm text-orange-700 bg-orange-50 border border-orange-200 rounded-sm px-3 py-2">
+                                            <span class="material-symbols-outlined text-sm">local_shipping</span>
+                                            <span>Pickup Mtaani delivery fee: <strong id="agentFeeText">—</strong></span>
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Delivery Method -->
-                                <div class="pt-4">
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-3">Delivery Method *</label>
-                                    
-                                    <div class="space-y-3">
-                                        <label class="flex items-center gap-3 cursor-pointer">
-                                            <input type="radio" name="delivery_method" value="doorstep" class="text-gold-deep focus:ring-gold-deep" checked>
-                                            <span class="text-sm">Doorstep Delivery (1-3 business days)</span>
-                                        </label>
-                                        
-                                        <label class="flex items-center gap-3 cursor-pointer">
-                                            <input type="radio" name="delivery_method" value="pickup" class="text-gold-deep focus:ring-gold-deep">
-                                            <span class="text-sm">Pick Up Mtaani Agent </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <!-- Pickup Location (hidden by default) -->
-                                <div id="pickupLocationField" class="hidden">
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Select Pickup Location *</label>
-                                    <select name="pickup_location" class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition">
-                                        <option value="">Choose agent near you</option>
-                                        <option value="Nairobi CBD - Moi Avenue">Nairobi CBD - Moi Avenue</option>
-                                        <option value="Westlands - Sarit Center">Westlands - Sarit Center</option>
-                                        <option value="Kilimani - Adams Arcade">Kilimani - Adams Arcade</option>
-                                        <option value="Eastlands - T-Mall">Eastlands - T-Mall</option>
-                                        <option value="Thika - Makongeni">Thika - Makongeni</option>
-                                    </select>
+
+                                    <p class="text-xs text-slate-400 italic">
+                                        * Pickup Mtaani delivers to agents nationwide. Delivery cost is added to your order total.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -187,12 +297,10 @@
                                 <label class="flex items-center gap-3 cursor-pointer p-3 border border-rose-soft rounded-sm hover:border-gold-deep/30 transition">
                                     <input type="radio" name="payment_method" value="mpesa" class="text-gold-deep focus:ring-gold-deep" checked>
                                     <span class="flex items-center gap-2">
-                                        <img src="data:image/png;base64,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" alt="M-PESA" class="h-6">
+                                        <img src="data:image/png;base64,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" alt="M-PESA" class="h-6">
                                         <span class="text-sm">M-PESA (Send payment prompt to phone)</span>
                                     </span>
                                 </label>
-                                
-                               
                             </div>
                         </div>
                         
@@ -249,20 +357,23 @@
                                 <span>Kshs {{ number_format($subtotal, 2) }}</span>
                             </div>
                             <div class="flex justify-between text-sm">
-                                <span class="text-slate-500">Shipping</span>
-                                <span>
-                                    @if($shipping > 0)
-                                        Kshs {{ number_format($shipping, 2) }}
-                                    @else
-                                        <span class="text-green-600">Free</span>
-                                    @endif
-                                </span>
+                                <span class="text-slate-500" id="shippingLabel">Delivery (Nairobi CBD)</span>
+                                <span id="shippingDisplay" class="font-medium">Kshs 100.00</span>
                             </div>
                             <div class="flex justify-between text-lg font-medium pt-2 border-t border-rose-soft">
                                 <span>Total</span>
-                                <span class="text-gold-deep">Kshs {{ number_format($total, 2) }}</span>
+                                <span class="text-gold-deep" id="totalDisplay">Kshs {{ number_format($subtotal + 100, 2) }}</span>
                             </div>
                         </div>
+                        
+                        <!-- Delivery Zone Badge -->
+                        <div id="deliveryBadge" class="mt-3 text-xs text-center rounded-sm px-3 py-2 bg-gold-deep/10 text-gold-deep font-medium flex items-center justify-center gap-1">
+                            <span class="material-symbols-outlined text-sm">location_on</span>
+                            <span id="deliveryBadgeText">Nairobi CBD – Direct Delivery</span>
+                        </div>
+
+                        <!-- Hidden fields passed to backend -->
+                        <input type="hidden" name="shipping_fee" id="shipping_fee_hidden" value="100" form="checkoutForm">
                         
                         <!-- Place Order Button -->
                         <button type="submit" form="checkoutForm" class="w-full bg-gold-deep text-white py-4 rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition mt-6">
@@ -283,33 +394,168 @@
 
 @push('scripts')
 <script>
-    // Toggle pickup location field based on delivery method
-    document.querySelectorAll('input[name="delivery_method"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const pickupField = document.getElementById('pickupLocationField');
-            if (this.value === 'pickup') {
-                pickupField.classList.remove('hidden');
-                document.querySelector('select[name="pickup_location"]').setAttribute('required', 'required');
-            } else {
-                pickupField.classList.add('hidden');
-                document.querySelector('select[name="pickup_location"]').removeAttribute('required');
-            }
-        });
+    const SUBTOTAL = {{ $subtotal }};
+    const CBD_FEE  = 100;
+
+    // ── Elements ──────────────────────────────────────────────────────────────
+    const zoneCbd       = document.getElementById('zone_cbd');
+    const zoneMtaani    = document.getElementById('zone_mtaani');
+    const cbdLabel      = document.getElementById('zone-cbd-label');
+    const mtaaniLabel   = document.getElementById('zone-mtaani-label');
+    const cbdFields     = document.getElementById('cbdFields');
+    const mtaaniFields  = document.getElementById('mtaaniFields');
+    const agentSelect   = document.getElementById('pickupAgentSelect');
+    const agentFeeInfo  = document.getElementById('agentFeeInfo');
+    const agentFeeText  = document.getElementById('agentFeeText');
+    const shippingLabel = document.getElementById('shippingLabel');
+    const shippingDisp  = document.getElementById('shippingDisplay');
+    const totalDisp     = document.getElementById('totalDisplay');
+    const feeHidden     = document.getElementById('shipping_fee_hidden');
+    const badgeText     = document.getElementById('deliveryBadgeText');
+    const zoneHidden    = document.getElementById('delivery_zone_hidden');
+
+    // City / county inputs (we need to merge mtaani city into city field on submit)
+    const cityInput         = document.getElementById('city_input');
+    const countyInput       = document.getElementById('county_input');
+    const cityMtaaniInput   = document.getElementById('city_mtaani_input');
+    const countyMtaaniInput = document.getElementById('county_mtaani_input');
+    const mtaaniLocInput    = document.getElementById('mtaani_location_input');
+
+    // Format currency
+    function fmt(n) {
+        return 'Kshs ' + n.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Update the order summary panel
+    function updateSummary(fee, label) {
+        shippingLabel.textContent = label;
+        shippingDisp.textContent  = fmt(fee);
+        totalDisp.textContent     = fmt(SUBTOTAL + fee);
+        feeHidden.value           = fee;
+    }
+
+    // Switch to CBD mode
+    function activateCBD() {
+        // Style labels
+        cbdLabel.classList.add('border-gold-deep', 'bg-gold-deep/5');
+        cbdLabel.classList.remove('border-rose-soft');
+        mtaaniLabel.classList.remove('border-gold-deep', 'bg-gold-deep/5');
+        mtaaniLabel.classList.add('border-rose-soft');
+
+        // Show/hide fields
+        cbdFields.classList.remove('hidden');
+        mtaaniFields.classList.add('hidden');
+
+        // Make city/county readonly CBD
+        cityInput.value    = 'Nairobi';
+        countyInput.value  = 'Nairobi';
+        cityInput.readOnly = true;
+        cityInput.classList.add('bg-slate-50');
+
+        // Remove required from mtaani fields
+        agentSelect.removeAttribute('required');
+        mtaaniLocInput.removeAttribute('required');
+        cityMtaaniInput.removeAttribute('required');
+        countyMtaaniInput.removeAttribute('required');
+
+        // Restore required on base city
+        cityInput.setAttribute('required', 'required');
+        countyInput.setAttribute('required', 'required');
+
+        zoneHidden.value = 'cbd';
+        updateSummary(CBD_FEE, 'Delivery (Nairobi CBD)');
+        badgeText.textContent = 'Nairobi CBD – Direct Delivery';
+    }
+
+    // Switch to Pickup Mtaani mode
+    function activateMtaani() {
+        // Style labels
+        mtaaniLabel.classList.add('border-gold-deep', 'bg-gold-deep/5');
+        mtaaniLabel.classList.remove('border-rose-soft');
+        cbdLabel.classList.remove('border-gold-deep', 'bg-gold-deep/5');
+        cbdLabel.classList.add('border-rose-soft');
+
+        // Show/hide fields
+        cbdFields.classList.add('hidden');
+        mtaaniFields.classList.remove('hidden');
+
+        // Remove required from CBD city
+        cityInput.removeAttribute('required');
+
+        // Add required to mtaani fields
+        agentSelect.setAttribute('required', 'required');
+        mtaaniLocInput.setAttribute('required', 'required');
+        cityMtaaniInput.setAttribute('required', 'required');
+        countyMtaaniInput.setAttribute('required', 'required');
+
+        zoneHidden.value = 'mtaani';
+
+        // Reflect agent fee if already selected
+        handleAgentChange();
+        badgeText.textContent = 'Pickup Mtaani – Agent Delivery';
+    }
+
+    // Handle agent dropdown change
+    function handleAgentChange() {
+        const selected = agentSelect.options[agentSelect.selectedIndex];
+        const fee = selected ? parseInt(selected.getAttribute('data-fee')) : NaN;
+
+        if (!isNaN(fee) && selected.value !== '') {
+            agentFeeInfo.classList.remove('hidden');
+            agentFeeText.textContent = 'Ksh ' + fee.toLocaleString('en-KE');
+            updateSummary(fee, 'Delivery (Pickup Mtaani)');
+        } else {
+            agentFeeInfo.classList.add('hidden');
+            updateSummary(0, 'Delivery (select agent)');
+            shippingDisp.textContent = '—';
+            totalDisp.textContent    = '—';
+        }
+    }
+
+    // ── Event Listeners ───────────────────────────────────────────────────────
+    zoneCbd.addEventListener('change', () => { if (zoneCbd.checked) activateCBD(); });
+    zoneMtaani.addEventListener('change', () => { if (zoneMtaani.checked) activateMtaani(); });
+
+    // Also allow clicking the card labels to toggle
+    cbdLabel.addEventListener('click', () => { zoneCbd.checked = true; activateCBD(); });
+    mtaaniLabel.addEventListener('click', () => { zoneMtaani.checked = true; activateMtaani(); });
+
+    agentSelect.addEventListener('change', handleAgentChange);
+
+    // ── Before form submit: merge city/county ──────────────────────────────────
+    document.getElementById('checkoutForm').addEventListener('submit', function() {
+        if (zoneMtaani.checked) {
+            // Copy mtaani city/county into the main city/county fields so the controller receives them
+            cityInput.readOnly    = false;
+            countyInput.readOnly  = false;
+            cityInput.value       = cityMtaaniInput.value;
+            countyInput.value     = countyMtaaniInput.value;
+        }
     });
-    
-    // Format phone number as user types
+
+    // ── Phone formatter ────────────────────────────────────────────────────────
     document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length > 0) {
             if (value.startsWith('0')) {
                 value = '254' + value.substring(1);
             }
-            if (value.length > 9) {
+            if (value.length > 12) {
                 value = value.substring(0, 12);
             }
         }
         e.target.value = value;
     });
+
+    // ── Init on page load ──────────────────────────────────────────────────────
+    const savedZone = '{{ old("delivery_zone", "cbd") }}';
+    if (savedZone === 'mtaani') {
+        zoneMtaani.checked = true;
+        activateMtaani();
+    } else {
+        zoneCbd.checked = true;
+        activateCBD();
+    }
 </script>
 @endpush
 @endsection
