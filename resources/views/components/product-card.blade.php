@@ -31,26 +31,7 @@
                 </div>
             @endif
             
-            <!-- Badges Section - Top Left -->
-            <div class="absolute top-4 left-4 flex flex-col gap-2">
-                @if($featured)
-                    <span class="px-3 py-1.5 bg-gold-deep/90 text-white text-[9px] uppercase tracking-widest rounded-full shadow-sm">
-                        Featured
-                    </span>
-                @endif
-                
-                @if($isNew)
-                    <span class="px-3 py-1.5 bg-blue-500/90 text-white text-[9px] uppercase tracking-widest rounded-full shadow-sm">
-                        New
-                    </span>
-                @endif
-                
-                @if($isBestseller)
-                    <span class="px-3 py-1.5 bg-purple-600/90 text-white text-[9px] uppercase tracking-widest rounded-full shadow-sm">
-                        Best Seller
-                    </span>
-                @endif
-            </div>
+            <!-- Badges Section - Top Left (REMOVED) -->
             
             <!-- Sale Badge - Top Right -->
             @if($isSale && $discountPercentage)
