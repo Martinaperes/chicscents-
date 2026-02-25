@@ -42,39 +42,41 @@
                 <tr class="group hover:bg-ivory/50 transition-colors">
                     <td class="px-10 py-8 pl-12">
                         <div class="flex items-center gap-5">
-                            <div class="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center font-black text-white shadow-lg group-hover:bg-adm-accent transition-all duration-500">
-                                #{{ $order->id }}
+                            <div class="w-14 h-14 rounded-2xl bg-adm-dark border border-slate-800 flex flex-col items-center justify-center shadow-2xl group-hover:bg-adm-accent transition-all duration-500">
+                                <span class="text-[10px] font-black text-slate-500 uppercase leading-none mb-1">ID</span>
+                                <span class="text-lg font-black text-white leading-none">#{{ $order->id }}</span>
                             </div>
                             <div>
-                                <p class="text-[11px] font-black text-slate-900 uppercase tracking-tighter">REF-{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</p>
-                                <p class="text-[9px] text-slate-400 mt-1 uppercase font-bold tracking-widest">{{ $order->created_at->format('M d, H:i') }}</p>
+                                <p class="text-sm font-black text-slate-900 uppercase tracking-tight">REF-{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</p>
+                                <div class="flex items-center gap-2 mt-1.5">
+                                    <span class="w-2 h-2 rounded-full {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning animate-pulse' : 'bg-slate-300' }}"></span>
+                                    <p class="text-[10px] text-slate-400 uppercase font-black tracking-[0.1em]">{{ $order->created_at->format('M d, Y') }}</p>
+                                </div>
                             </div>
                         </div>
                     </td>
                     <td class="px-8 py-6">
-                        <p class="text-xs font-black text-slate-900">{{ $order->first_name }} {{ $order->last_name }}</p>
-                        <p class="text-[10px] text-slate-500 font-medium mt-0.5">{{ $order->email }}</p>
+                        <p class="text-sm font-black text-slate-900 leading-tight">{{ $order->first_name }} {{ $order->last_name }}</p>
+                        <p class="text-[11px] text-slate-500 font-bold mt-1 tracking-tight">{{ $order->email }}</p>
                     </td>
                     <td class="px-8 py-6 text-center">
-                        <span class="px-3.5 py-1.5 bg-slate-100 rounded-xl text-[10px] font-black text-slate-600 uppercase border border-slate-200 shadow-sm">Items: {{ $order->items_count ?? 0 }}</span>
+                        <span class="px-4 py-1.5 bg-slate-100 rounded-xl text-[11px] font-black text-slate-800 uppercase border border-slate-200 shadow-sm">
+                            {{ $order->items_count ?? 0 }} Items
+                        </span>
                     </td>
                     <td class="px-8 py-6 text-right">
-                        <p class="text-sm font-black text-slate-900 tracking-tight">Ksh {{ number_format($order->total_amount, 2) }}</p>
-                        <p class="text-[9px] font-black uppercase tracking-widest mt-1 {{ $order->payment_status === 'paid' ? 'text-adm-success' : 'text-adm-warning' }}">{{ $order->payment_status }}</p>
+                        <p class="text-base font-black text-slate-900 tracking-tight">Ksh {{ number_format($order->total_amount, 2) }}</p>
+                        <p class="text-[10px] font-black uppercase tracking-widest mt-1.5 {{ $order->payment_status === 'paid' ? 'text-adm-success' : 'text-adm-warning' }}">
+                            {{ $order->payment_status }} Payment
+                        </p>
                     </td>
                     <td class="px-8 py-6 text-center">
-                        <span class="inline-flex items-center px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm border
-                            {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning/10 text-adm-warning border-adm-warning/20' : '' }}
-                            {{ $order->order_status === 'processing' ? 'bg-adm-accent/10 text-adm-accent border-adm-accent/20' : '' }}
-                            {{ $order->order_status === 'shipped' ? 'bg-adm-info/10 text-adm-info border-adm-info/20' : '' }}
-                            {{ $order->order_status === 'delivered' ? 'bg-adm-success/10 text-adm-success border-adm-success/20' : '' }}
-                            {{ $order->order_status === 'cancelled' ? 'bg-adm-error/10 text-adm-error border-adm-error/20' : '' }}">
-                            <span class="w-1.5 h-1.5 rounded-full mr-2 
-                                {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning' : '' }}
-                                {{ $order->order_status === 'processing' ? 'bg-adm-accent' : '' }}
-                                {{ $order->order_status === 'shipped' ? 'bg-adm-info' : '' }}
-                                {{ $order->order_status === 'delivered' ? 'bg-adm-success' : '' }}
-                                {{ $order->order_status === 'cancelled' ? 'bg-adm-error' : '' }}"></span>
+                        <span class="inline-flex items-center px-6 py-2.5 rounded-2xl text-[11px] font-black uppercase tracking-[0.1em] shadow-md border-2
+                            {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning/20 text-adm-warning border-adm-warning' : '' }}
+                            {{ $order->order_status === 'processing' ? 'bg-adm-accent/20 text-adm-accent border-adm-accent' : '' }}
+                            {{ $order->order_status === 'shipped' ? 'bg-adm-info/20 text-adm-info border-adm-info' : '' }}
+                            {{ $order->order_status === 'delivered' ? 'bg-adm-success/20 text-adm-success border-adm-success' : '' }}
+                            {{ $order->order_status === 'cancelled' ? 'bg-adm-error/20 text-adm-error border-adm-error' : '' }}">
                             {{ $order->order_status }}
                         </span>
                     </td>
