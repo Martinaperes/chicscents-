@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shop All Fragrances | Chic Scents')
+@section('title', 'Shop All Fragrances | ScentCepts')
 
 @section('content')
     <!-- Top Spacer -->
