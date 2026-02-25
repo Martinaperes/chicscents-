@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Chic Scents | Luxury Fragrances')
+@section('title', 'ScentCepts | Luxury Fragrances')
 
 @section('content')
     <!-- Top Spacer -->
@@ -16,7 +16,7 @@
     <!-- Background Image -->
     <img 
         src="{{ asset('images/hero/perfume scents.jpg') }}"
-        alt="Chic Scents luxury perfume"
+        alt="ScentCepts luxury perfume"
         class="absolute inset-0 w-full h-full object-cover"
     />
 
@@ -27,7 +27,7 @@
     <div class="relative z-10 flex items-end justify-center h-full px-6 pb-24 text-center text-white">
         <div>
             <span class="text-[11px] uppercase tracking-[0.5em] font-medium text-gold-deep mb-4 block">
-                Chic Scents
+                ScentCepts
             </span>
 
             <h2 class="text-5xl md:text-6xl serif-heading font-light tracking-tight mb-6 leading-tight">
@@ -220,7 +220,7 @@
         "Every decant is a journey. <br/>Every bottle, a destination."
     </p>
     <p class="text-sm text-slate-500 max-w-xs mx-auto mb-10 leading-relaxed font-light">
-        Born from a passion for fragrance, Chic Scents helps you explore 
+        Born from a passion for fragrance, ScentCepts helps you explore 
         the world of perfumery without commitment. Sample first, then 
         invest in the scents you truly love.
     </p>
