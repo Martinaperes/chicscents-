@@ -1,112 +1,132 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard')
-@section('page_title', 'Business Intelligence')
+@section('title', 'Intelligence Hub')
+@section('page_title', 'Strategic Overview')
 
 @section('content')
 <!-- Metric Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-        <div class="flex items-center justify-between mb-6">
-            <div class="p-3.5 bg-adm-accent/10 rounded-2xl text-adm-accent group-hover:bg-adm-accent group-hover:text-white transition-all duration-500">
+    <!-- Gross Revenue Card -->
+    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group">
+        <div class="flex items-center justify-between mb-8">
+            <div class="p-4 bg-adm-accent/10 rounded-2xl text-adm-accent group-hover:bg-adm-accent group-hover:text-white transition-all duration-500 shadow-sm">
                 <span class="material-symbols-outlined text-2xl font-bold">payments</span>
             </div>
-            <span class="text-[11px] font-black text-adm-success bg-adm-success/10 px-3 py-1.5 rounded-xl border border-adm-success/10 uppercase tracking-widest">+12.5%</span>
+            <div class="flex flex-col items-end">
+                <span class="text-[10px] font-black text-adm-success bg-adm-success/10 px-3 py-1 rounded-lg border border-adm-success/10 uppercase tracking-widest">Growth</span>
+                <span class="text-[9px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">vs Last Month</span>
+            </div>
         </div>
-        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 font-sans">Gross Revenue</p>
-        <h4 class="text-3xl font-black text-slate-900 tracking-tighter">Ksh {{ number_format($total_sales, 2) }}</h4>
+        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Aggregate Value</p>
+        <h4 class="text-3xl font-black text-slate-900 tracking-tighter serif-heading">
+            <span class="text-adm-accent text-lg font-medium mr-1">Ksh</span>{{ number_format($total_sales, 2) }}
+        </h4>
     </div>
 
-    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-        <div class="flex items-center justify-between mb-6">
-            <div class="p-3.5 bg-adm-warning/10 rounded-2xl text-adm-warning group-hover:bg-adm-warning group-hover:text-white transition-all duration-500">
+    <!-- Total Orders Card -->
+    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group">
+        <div class="flex items-center justify-between mb-8">
+            <div class="p-4 bg-slate-900 rounded-2xl text-white group-hover:bg-adm-accent transition-all duration-500 shadow-xl">
                 <span class="material-symbols-outlined text-2xl font-bold">shopping_cart</span>
             </div>
-            <span class="text-[11px] font-black text-adm-warning bg-adm-warning/10 px-3 py-1.5 rounded-xl border border-adm-warning/10 uppercase tracking-widest">Active</span>
+            <span class="text-[10px] font-black text-adm-warning bg-adm-warning/10 px-3 py-1 rounded-lg border border-adm-warning/10 uppercase tracking-widest">Operational</span>
         </div>
-        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 font-sans">Total Orders</p>
-        <h4 class="text-3xl font-black text-slate-900 tracking-tighter">{{ $total_orders }}</h4>
+        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Traffic Volume</p>
+        <h4 class="text-4xl font-black text-slate-900 tracking-tighter serif-heading">{{ $total_orders }}</h4>
     </div>
 
-    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-        <div class="flex items-center justify-between mb-6">
-            <div class="p-3.5 bg-adm-success/10 rounded-2xl text-adm-success group-hover:bg-adm-success group-hover:text-white transition-all duration-500">
+    <!-- Customers Card -->
+    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group">
+        <div class="flex items-center justify-between mb-8">
+            <div class="p-4 bg-adm-success/10 rounded-2xl text-adm-success group-hover:bg-adm-success group-hover:text-white transition-all duration-500 shadow-sm">
                 <span class="material-symbols-outlined text-2xl font-bold">group</span>
             </div>
-            <span class="text-[11px] font-black text-adm-success bg-adm-success/10 px-3 py-1.5 rounded-xl border border-adm-success/10 uppercase tracking-widest">Verified</span>
+            <span class="text-[10px] font-black text-adm-success bg-adm-success/10 px-3 py-1 rounded-lg border border-adm-success/10 uppercase tracking-widest">Loyalty</span>
         </div>
-        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 font-sans">Total Clients</p>
-        <h4 class="text-3xl font-black text-slate-900 tracking-tighter">{{ $total_customers }}</h4>
+        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Client Database</p>
+        <h4 class="text-4xl font-black text-slate-900 tracking-tighter serif-heading">{{ $total_customers }}</h4>
     </div>
 
-    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-        <div class="flex items-center justify-between mb-6">
-            <div class="p-3.5 bg-adm-info/10 rounded-2xl text-adm-info group-hover:bg-adm-info group-hover:text-white transition-all duration-500">
+    <!-- Products Card -->
+    <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group">
+        <div class="flex items-center justify-between mb-8">
+            <div class="p-4 bg-slate-100 rounded-2xl text-slate-400 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500 shadow-sm">
                 <span class="material-symbols-outlined text-2xl font-bold">inventory</span>
             </div>
-            <span class="text-[11px] font-black text-adm-info bg-adm-info/10 px-3 py-1.5 rounded-xl border border-adm-info/10 uppercase tracking-widest">Stocked</span>
+            <span class="text-[10px] font-black text-slate-400 bg-slate-100 px-3 py-1 rounded-lg uppercase tracking-widest">Portfolio</span>
         </div>
-        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 font-sans">Fragrances</p>
-        <h4 class="text-3xl font-black text-slate-900 tracking-tighter">{{ $total_products }}</h4>
+        <p class="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Curated Items</p>
+        <h4 class="text-4xl font-black text-slate-900 tracking-tighter serif-heading">{{ $total_products }}</h4>
     </div>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Recent Activity Table -->
-    <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-        <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+    <div class="lg:col-span-2 bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+        <div class="px-8 py-7 border-b border-slate-100 flex items-center justify-between bg-white">
             <div>
-                <h4 class="font-black text-slate-900 uppercase tracking-tighter">Recent Transactions</h4>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Manage your latest incoming orders</p>
+                <h4 class="text-xl font-black text-slate-900 uppercase tracking-tighter serif-heading">Recent Manifests</h4>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Real-time surveillance of customer transactions</p>
             </div>
-            <a href="{{ route('admin.orders') }}" class="inline-flex items-center gap-2 px-4 py-2 bg-adm-accent/10 text-adm-accent rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-adm-accent hover:text-white transition-all duration-300">
-                View Ledger
+            <a href="{{ route('admin.orders') }}" class="inline-flex items-center gap-3 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-adm-accent transition-all duration-500 shadow-lg shadow-slate-900/10">
+                Access Audit
                 <span class="material-symbols-outlined text-xs">arrow_forward</span>
             </a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left">
-                <thead class="bg-slate-50/80 border-b border-slate-100">
-                    <tr>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] pl-8">Order Ref</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Client Identity</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Settlement</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center">Status</th>
-                        <th class="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right pr-8">Control</th>
+                <thead>
+                    <tr class="bg-slate-50/50">
+                        <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Reference</th>
+                        <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Identity</th>
+                        <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Valuation</th>
+                        <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center">Protocol</th>
+                        <th class="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                     @forelse($recent_orders as $order)
-                    <tr class="hover:bg-slate-50/50 transition duration-150">
-                        <td class="px-6 py-4 pl-8">
-                            <span class="text-xs font-bold text-slate-800 tracking-tight">#{{ $order->id }}</span>
+                    <tr class="hover:bg-slate-50/10 transition duration-300">
+                        <td class="px-8 py-6">
+                            <span class="text-xs font-black text-slate-900 tracking-tighter px-3 py-1 bg-slate-100 rounded-lg">#{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</span>
                         </td>
-                        <td class="px-6 py-4">
-                            <p class="text-xs font-bold text-slate-700 leading-none">{{ $order->first_name }} {{ $order->last_name }}</p>
-                            <p class="text-[10px] text-slate-400 mt-1 uppercase">{{ $order->created_at->diffForHumans() }}</p>
+                        <td class="px-8 py-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-9 h-9 rounded-xl bg-adm-accent/10 border border-adm-accent/20 flex items-center justify-center font-black text-adm-accent text-xs">
+                                    {{ substr($order->first_name, 0, 1) }}
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black text-slate-800 leading-none">{{ $order->first_name }} {{ $order->last_name }}</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">{{ $order->created_at->format('M d, H:i') }}</p>
+                                </div>
+                            </div>
                         </td>
-                        <td class="px-6 py-4">
-                            <span class="text-xs font-bold text-slate-800">Ksh {{ number_format($order->total_amount, 2) }}</span>
+                        <td class="px-8 py-6">
+                            <span class="text-xs font-black text-slate-900 tracking-tighter serif-heading">Ksh {{ number_format($order->total_amount, 2) }}</span>
                         </td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider
-                                {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning/10 text-adm-warning' : '' }}
-                                {{ $order->order_status === 'processing' ? 'bg-adm-accent/10 text-adm-accent' : '' }}
-                                {{ $order->order_status === 'shipped' ? 'bg-adm-info/10 text-adm-info' : '' }}
-                                {{ $order->order_status === 'delivered' ? 'bg-adm-success/10 text-adm-success' : '' }}">
+                        <td class="px-8 py-6 text-center">
+                            <span class="px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.1em] border-2
+                                {{ in_array($order->order_status, ['pending', 'new']) ? 'bg-adm-warning/5 text-adm-warning border-adm-warning/20' : '' }}
+                                {{ $order->order_status === 'processing' ? 'bg-adm-accent/5 text-adm-accent border-adm-accent/20' : '' }}
+                                {{ $order->order_status === 'shipped' ? 'bg-blue-50 text-blue-600 border-blue-100' : '' }}
+                                {{ $order->order_status === 'delivered' ? 'bg-adm-success/5 text-adm-success border-adm-success/20' : '' }}">
                                 {{ $order->order_status }}
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-right pr-8">
-                            <a href="{{ route('admin.orders.show', $order->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-adm-accent/5 text-adm-accent border border-adm-accent/10 rounded-lg text-[9px] font-black uppercase tracking-widest hover:bg-adm-accent hover:text-white transition-all">
-                                <span class="material-symbols-outlined text-[14px]">visibility</span>
-                                Review
+                        <td class="px-8 py-6 text-right">
+                            <a href="{{ route('admin.orders.show', $order) }}" class="w-9 h-9 inline-flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-400 hover:border-adm-accent hover:text-adm-accent hover:shadow-lg transition-all duration-300">
+                                <span class="material-symbols-outlined text-lg">visibility</span>
                             </a>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-12 text-center text-xs text-slate-400 font-medium uppercase tracking-[0.2em] italic">No active transactions found</td>
+                        <td colspan="5" class="px-8 py-12 text-center">
+                            <div class="flex flex-col items-center gap-3">
+                                <span class="material-symbols-outlined text-4xl text-slate-200">folder_open</span>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">No active manifests detected</p>
+                            </div>
+                        </td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -114,44 +134,47 @@
         </div>
     </div>
 
-    <!-- Inventory Alerts -->
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col h-full overflow-hidden">
-        <div class="px-6 py-5 border-b border-slate-100 bg-slate-50/30">
-            <h4 class="font-black text-slate-900 uppercase tracking-tighter">Stock Threshold Alerts</h4>
-            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Products requiring immediate restock</p>
+    <!-- Inventory Alert Card -->
+    <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden flex flex-col h-full hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+        <div class="px-8 py-7 border-b border-slate-100 bg-white">
+            <h4 class="text-xl font-black text-slate-900 uppercase tracking-tighter serif-heading">Deficit Alert</h4>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Resources requiring replenishment</p>
         </div>
-        <div class="p-6 space-y-4 flex-1">
+        <div class="p-8 space-y-6 flex-1 custom-scrollbar overflow-y-auto">
             @forelse($low_stock_products as $product)
-            <div class="flex items-center gap-4 p-4 rounded-2xl border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-adm-error/30 hover:shadow-lg transition-all duration-300 group">
-                <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex-shrink-0 flex items-center justify-center border border-slate-100 overflow-hidden group-hover:scale-105 transition-transform duration-500">
-                    @if($product->featured_image)
-                        <img src="{{ asset($product->featured_image) }}" class="w-full h-full object-cover">
-                    @else
-                        <span class="material-symbols-outlined text-slate-200">image</span>
-                    @endif
-                </div>
-                <div class="flex-1 overflow-hidden">
-                    <p class="text-[11px] font-black text-slate-900 truncate uppercase tracking-tighter">{{ $product->name }}</p>
-                    <div class="flex items-center gap-2 mt-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-adm-error animate-pulse"></span>
-                        <p class="text-[10px] font-black text-adm-error uppercase tracking-widest">{{ $product->stock_quantity }} units left</p>
+            <div class="flex items-center justify-between group">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-slate-50 border border-slate-100 rounded-xl overflow-hidden group-hover:border-adm-accent transition-all duration-300">
+                        @if($product->featured_image)
+                            <img src="{{ asset($product->featured_image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center bg-slate-50 text-slate-300">
+                                <span class="material-symbols-outlined text-lg">image</span>
+                            </div>
+                        @endif
+                    </div>
+                    <div>
+                        <p class="text-xs font-black text-slate-800 leading-tight group-hover:text-adm-accent transition-all duration-300">{{ Str::limit($product->name, 20) }}</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{{ $product->brand->name ?? 'Maison Portfolio' }}</p>
                     </div>
                 </div>
-                <a href="{{ route('admin.products.edit', $product->id) }}" class="w-9 h-9 rounded-xl flex items-center justify-center text-slate-300 hover:text-white hover:bg-adm-accent hover:shadow-lg transition-all duration-300">
-                    <span class="material-symbols-outlined text-lg">edit_note</span>
-                </a>
+                <div class="text-right">
+                    <p class="text-[11px] font-black {{ $product->stock_quantity == 0 ? 'text-adm-error bg-adm-error/5' : 'text-adm-warning bg-adm-warning/5' }} px-3 py-1 rounded-lg border border-current/10">
+                        {{ $product->stock_quantity }} Unit{{ $product->stock_quantity != 1 ? 's' : '' }}
+                    </p>
+                </div>
             </div>
             @empty
-            <div class="flex flex-col items-center justify-center py-10 text-center opacity-30 grayscale">
-                <span class="material-symbols-outlined text-4xl mb-2">check_circle</span>
-                <p class="text-xs font-black uppercase tracking-widest">Inventory Levels Healthy</p>
+            <div class="flex flex-col items-center justify-center py-10 opacity-30 grayscale">
+                <span class="material-symbols-outlined text-4xl mb-3">inventory_2</span>
+                <p class="text-[10px] font-black uppercase tracking-widest">Inventory Fully Sustained</p>
             </div>
             @endforelse
         </div>
-        <div class="p-6 bg-slate-50/80 border-t border-slate-100">
-            <a href="{{ route('admin.products') }}" class="flex items-center justify-center gap-3 w-full py-4 bg-white border border-slate-200 rounded-2xl text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] hover:bg-slate-900 hover:text-white hover:border-slate-900 hover:shadow-2xl transition-all duration-300 active:scale-95 group">
-                Full Inventory Report
-                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        <div class="p-8 bg-slate-50/50 border-t border-slate-100">
+            <a href="{{ route('admin.products') }}" class="flex items-center justify-center gap-3 w-full py-4 bg-white border border-slate-200 text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:border-adm-accent hover:text-adm-accent hover:shadow-xl transition-all duration-500 shadow-sm">
+                Inventory Logistics
+                <span class="material-symbols-outlined text-sm">settings_input_component</span>
             </a>
         </div>
     </div>
