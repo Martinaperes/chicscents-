@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us | Chic Scents')
+@section('title', 'Contact Us | ScentCepts')
 
 @section('content')
     <!-- Top Spacer -->
@@ -45,7 +45,7 @@
                     <span class="material-symbols-outlined text-4xl text-gold-deep mb-3">store</span>
                     <h3 class="text-lg serif-heading font-light mb-2">Online Only Boutique</h3>
                     <p class="text-sm text-slate-600 max-w-xl mx-auto">
-                        Chic Scents is an online-only boutique. While we don't have a physical store, 
+                        ScentCepts is an online-only boutique. While we don't have a physical store, 
                         we're always available on social media and phone to assist you with any questions 
                         about our fragrances.
                     </p>
