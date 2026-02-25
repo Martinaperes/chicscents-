@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All Fragrances | Chic Scents')
+@section('title', 'All Fragrances | ScentCepts')
 
 @section('content')
 <main class="pb-32">
