@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Our Brands | Chic Scents')
+@section('title', 'Our Brands | ScentCepts')
 
 @section('content')
 <main class="pb-16 md:pb-32">
@@ -135,7 +135,7 @@
                                 'slug' => '#'
                             ],
                             [
-                                'name' => 'Chic Scents Signature',
+                                'name' => 'ScentCepts Signature',
                                 'country' => 'Kenya',
                                 'description' => 'Our very own collection, crafted exclusively for the Kenyan fragrance lover who appreciates accessible luxury.',
                                 'perfume_count' => 2,
@@ -220,7 +220,7 @@
                     </p>
                     <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-6 md:mb-8">
                         From the warm, spicy notes of Khamrah to the fresh elegance of Ramz Silver, Lattafa offers something 
-                        for every fragrance lover. Now available at Chic Scents in both decants and full bottles.
+                        for every fragrance lover. Now available at ScentCepts in both decants and full bottles.
                     </p>
                     <a href="{{ $lattafaExists ? route('products.index', ['brand' => 'lattafa']) : '#' }}" 
                        class="inline-block bg-gold-deep text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full text-[10px] md:text-xs tracking-widest uppercase hover:opacity-90 transition {{ !$lattafaExists ? 'opacity-50 pointer-events-none' : '' }}">
@@ -297,7 +297,7 @@
             <span class="text-[8px] md:text-[10px] uppercase tracking-[0.2em] md:tracking-[0.3em] text-gold-deep font-semibold mb-3 md:mb-4 block">Love a Brand?</span>
             <h2 class="text-2xl md:text-3xl lg:text-4xl serif-heading font-light mb-4 md:mb-6">Don't See Your <span class="italic text-gold-deep">Favorite?</span></h2>
             <p class="text-xs md:text-sm text-slate-500 max-w-2xl mx-auto mb-6 md:mb-10 px-4">
-                We're always expanding our collection. Let us know which brands you'd love to see at Chic Scents, 
+                We're always expanding our collection. Let us know which brands you'd love to see at ScentCepts, 
                 and we'll do our best to bring them.
             </p>
             <a href="https://wa.me/254716052342?text=Hi%20Chic%20Scents%2C%20I'd%20love%20to%20see%20[brand%20name]%20in%20your%20collection" 
