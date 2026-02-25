@@ -105,9 +105,9 @@
             
             <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6">Internal Controls</h4>
             
-            <form action="{{ route('admin.orders.update', $order->id) }}" method="POST" class="space-y-6">
+            <form action="{{ route('admin.orders.update-status', $order->id) }}" method="POST" class="space-y-6">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
                 
                 <div>
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Workflow State</label>
@@ -158,7 +158,7 @@
                 <div>
                     <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Destination Node</p>
                     <p class="text-xs font-bold text-slate-700 leading-relaxed">{{ $order->address }}</p>
-                    <p class="text-xs font-bold text-slate-700 mt-0.5">{{ $order->city }}, {{ $order->state }}</p>
+                    <p class="text-xs font-bold text-slate-700 mt-0.5">{{ $order->city }}, {{ $order->county }}</p>
                 </div>
                 <div>
                     <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Allocation Method</p>
