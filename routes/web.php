@@ -7,6 +7,11 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\BrandController as AdminBrandController;
+use App\Http\Controllers\Admin\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 // Home route
@@ -80,32 +85,32 @@ Route::prefix('admin')->group(function () {
 
     // Protected dashboard
     Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
         // Orders
-        Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
-        Route::get('/orders/{order}', [AdminController::class, 'showOrder'])->name('admin.orders.show');
-        Route::patch('/orders/{order}/status', [AdminController::class, 'updateOrderStatus'])->name('admin.orders.update-status');
+        Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+        Route::get('/orders/{order}', [OrderController::class, 'show'])->name('admin.orders.show');
+        Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.update-status');
 
         // Products
-        Route::get('/products', [AdminController::class, 'products'])->name('admin.products');
-        Route::get('/products/create', [AdminController::class, 'createProduct'])->name('admin.products.create');
-        Route::post('/products', [AdminController::class, 'storeProduct'])->name('admin.products.store');
-        Route::get('/products/{product}/edit', [AdminController::class, 'editProduct'])->name('admin.products.edit');
-        Route::put('/products/{product}', [AdminController::class, 'updateProduct'])->name('admin.products.update');
-        Route::delete('/products/{product}', [AdminController::class, 'destroyProduct'])->name('admin.products.destroy');
+        Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products');
+        Route::get('/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+        Route::post('/products', [AdminProductController::class, 'store'])->name('admin.products.store');
+        Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+        Route::put('/products/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
+        Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 
         // Brands
-        Route::get('/brands', [AdminController::class, 'brands'])->name('admin.brands');
-        Route::get('/brands/create', [AdminController::class, 'createBrand'])->name('admin.brands.create');
-        Route::post('/brands', [AdminController::class, 'storeBrand'])->name('admin.brands.store');
-        Route::get('/brands/{brand}/edit', [AdminController::class, 'editBrand'])->name('admin.brands.edit');
-        Route::put('/brands/{brand}', [AdminController::class, 'updateBrand'])->name('admin.brands.update');
-        Route::delete('/brands/{brand}', [AdminController::class, 'destroyBrand'])->name('admin.brands.destroy');
+        Route::get('/brands', [AdminBrandController::class, 'index'])->name('admin.brands');
+        Route::get('/brands/create', [AdminBrandController::class, 'create'])->name('admin.brands.create');
+        Route::post('/brands', [AdminBrandController::class, 'store'])->name('admin.brands.store');
+        Route::get('/brands/{brand}/edit', [AdminBrandController::class, 'edit'])->name('admin.brands.edit');
+        Route::put('/brands/{brand}', [AdminBrandController::class, 'update'])->name('admin.brands.update');
+        Route::delete('/brands/{brand}', [AdminBrandController::class, 'destroy'])->name('admin.brands.destroy');
 
         // Customers & Payments
-        Route::get('/customers', [AdminController::class, 'customers'])->name('admin.customers');
-        Route::get('/payments', [AdminController::class, 'payments'])->name('admin.payments');
+        Route::get('/customers', [CustomerController::class, 'index'])->name('admin.customers');
+        Route::get('/payments', [OrderController::class, 'payments'])->name('admin.payments');
     });
 });
