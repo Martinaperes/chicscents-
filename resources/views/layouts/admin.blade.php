@@ -37,7 +37,7 @@
         <!-- Logo -->
         <div class="px-6 py-8 flex items-center gap-4 border-b border-[#f1e6e2]">
             <div class="w-10 h-10 rounded-xl bg-[#ad7e6c] flex items-center justify-center font-black text-white text-lg shadow">
-                <img src="{{ asset('images/hero/chicscentslogo.jpeg') }}" alt="ScentCepts Logo" class="w-full h-full object-contain">
+                <img src="{{ asset('images/hero/chicsentslogo.jpg') }}" alt="ScentCepts Logo" class="w-full h-full object-contain">
             </div>
             <div>
                 <h1 class="text-sm font-black uppercase tracking-tight text-slate-800">ScentCepts</h1>
