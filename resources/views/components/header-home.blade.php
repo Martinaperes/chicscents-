@@ -5,7 +5,7 @@
         </button>
         
         <h1 class="text-xl serif-heading font-semibold tracking-[0.15em] uppercase">
-            Chic Scents
+            ScentCepts
         </h1>
         
         <div class="relative">
