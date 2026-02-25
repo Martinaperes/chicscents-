@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/hero/chicscentslogo.jpeg') }}">
-    <title>@yield('title', 'Chic Scents | Luxury Fragrances')</title>
+    <link rel="icon" type="image/jpg" href="{{ asset('images/hero/chicscentslogo.jpg') }}">
+    <title>@yield('title', 'ScentCepts | Luxury Fragrances')</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -96,7 +96,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="{{ route('home') }}" class="text-2xl serif-heading font-light tracking-wider text-gold-deep hover:opacity-80 transition">
-                        CHIC SCENTS
+                        ScentCepts
                     </a>
                 </div>
 
@@ -196,7 +196,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Brand -->
                 <div class="col-span-1 md:col-span-1">
-                    <h3 class="text-xl serif-heading font-light text-gold-deep mb-4">CHIC SCENTS</h3>
+                    <h3 class="text-xl serif-heading font-light text-gold-deep mb-4">ScentCepts</h3>
                     <p class="text-sm text-slate-500 leading-relaxed">
                         Luxury fragrances in every size. Discover your signature scent with our elegant decants and full bottles.
                     </p>
@@ -241,7 +241,7 @@
             <!-- Bottom Bar -->
             <div class="border-t border-rose-soft mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-xs text-slate-400">
-                    © {{ date('Y') }} Chic Scents. All rights reserved.
+                    © {{ date('Y') }} ScentCepts. All rights reserved.
                 </p>
                 <p class="text-xs text-slate-400 mt-2 md:mt-0">
                     Luxury fragrances for the modern Kenyan
