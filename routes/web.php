@@ -111,6 +111,5 @@ Route::prefix('admin')->group(function () {
 
         // Customers & Payments
         Route::get('/customers', [CustomerController::class, 'index'])->name('admin.customers');
-        Route::get('/payments', [OrderController::class, 'payments'])->name('admin.payments');
     });
 });
