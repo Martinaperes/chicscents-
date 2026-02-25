@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Privacy Policy | Chic Scents')
+@section('title', 'Privacy Policy | ScentCepts')
 
 @section('content')
 <main class="pb-16 md:pb-32">
@@ -41,7 +41,7 @@
             <!-- Introduction -->
             <div class="prose prose-sm md:prose-base max-w-none text-slate-600">
                 <p class="text-sm md:text-base leading-relaxed mb-8">
-                    At Chic Scents, we take your privacy seriously. This policy describes how we collect, use, and protect your personal information when you visit our website or make a purchase.
+                    At ScentCepts, we take your privacy seriously. This policy describes how we collect, use, and protect your personal information when you visit our website or make a purchase.
                 </p>
 
                 <!-- Section 1 -->
