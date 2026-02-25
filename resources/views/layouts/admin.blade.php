@@ -88,15 +88,7 @@
                 Orders
             </a>
 
-            <!-- Payments -->
-            <a href="{{ route('admin.payments') }}"
-               class="flex items-center gap-3 px-5 py-3 rounded-xl text-sm font-semibold transition
-               {{ request()->routeIs('admin.payments*') 
-                    ? 'text-[#ad7e6c] bg-[#f4eae6] border-l-4 border-[#ad7e6c]' 
-                    : 'text-slate-600 hover:text-[#ad7e6c] hover:bg-[#f9f4f2]' }}">
-                <span class="material-symbols-outlined text-lg">payments</span>
-                Payments
-            </a>
+
 
             <!-- Customers -->
             <a href="{{ route('admin.customers') }}"
