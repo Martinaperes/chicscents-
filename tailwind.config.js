@@ -23,7 +23,7 @@ export default {
                 // High-Visibility Admin Palette
                 'adm-dark': '#020617',    // Richer, deeper black
                 'adm-sidebar': '#0f172a', // More solid navy
-                'adm-accent': '#4f46e5',  // Vibrant indigo
+                'adm-accent': '#B7915F',  // Brand Gold for Luxury feel
                 'adm-bg': '#f8fafc',      // Clean slate background
                 'adm-success': '#059669', // Stronger emerald
                 'adm-warning': '#d97706', // Deeper amber
