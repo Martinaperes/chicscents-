@@ -6,8 +6,8 @@
 <main class="pb-16 md:pb-32">
     <!-- Hero Section -->
     <section class="relative h-[20vh] md:h-[25vh] min-h-[150px] overflow-hidden">
-        <img 
-            src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+        <img
+            src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
             alt="Checkout"
             class="absolute inset-0 w-full h-full object-cover"
         />
@@ -27,6 +27,20 @@
     <!-- Divider -->
     <x-divider />
 
+    <!-- How it works banner -->
+    <div class="bg-[#25D366]/10 border-b border-[#25D366]/20 py-3 px-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-center gap-3 text-sm text-slate-700">
+            <svg class="w-5 h-5 text-[#25D366] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.528 5.845L.057 23.882l6.188-1.448A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.791 9.791 0 01-4.988-1.365l-.356-.213-3.676.861.93-3.582-.234-.368A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/>
+            </svg>
+            <span>
+                <strong>How it works:</strong>
+                Fill in your details → Place Order → We send you an order summary → Confirm &amp; discuss delivery via WhatsApp
+            </span>
+        </div>
+    </div>
+
     <!-- Checkout Content -->
     <section class="py-8 md:py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
@@ -37,353 +51,222 @@
             @endif
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-                <!-- Left Column - Checkout Form -->
+
+                <!-- Left Column – Order Form -->
                 <div class="lg:col-span-2">
                     <form action="{{ route('checkout.process') }}" method="POST" id="checkoutForm">
                         @csrf
-                        
-                        <!-- Contact Information -->
-                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.02)] p-6 mb-6">
-                            <h2 class="text-lg font-medium mb-4 flex items-center gap-2">
-                                <span class="w-6 h-6 bg-gold-deep/10 rounded-full flex items-center justify-center text-xs text-gold-deep">1</span>
-                                Contact Information
+
+                        <!-- Step 1: Contact Information -->
+                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.03)] p-6 mb-6">
+                            <h2 class="text-lg font-medium mb-5 flex items-center gap-2">
+                                <span class="w-7 h-7 bg-gold-deep text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                                Your Contact Details
                             </h2>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">First Name *</label>
-                                    <input type="text" name="first_name" required 
-                                           class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                           value="{{ old('first_name') }}">
-                                    @error('first_name')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <input type="text" name="first_name" required
+                                           class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                           value="{{ old('first_name') }}" placeholder="Jane">
+                                    @error('first_name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
-                                
+
                                 <div>
                                     <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Last Name *</label>
-                                    <input type="text" name="last_name" required 
-                                           class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                           value="{{ old('last_name') }}">
-                                    @error('last_name')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <input type="text" name="last_name" required
+                                           class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                           value="{{ old('last_name') }}" placeholder="Doe">
+                                    @error('last_name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
-                                
+
                                 <div>
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Email *</label>
-                                    <input type="email" name="email" required 
-                                           class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                           value="{{ old('email') }}">
-                                    @error('email')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Email Address *</label>
+                                    <input type="email" name="email" required
+                                           class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                           value="{{ old('email') }}" placeholder="jane@example.com">
+                                    @error('email')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
-                                
+
                                 <div>
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Phone Number *</label>
-                                    <input type="tel" name="phone" required 
-                                           class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                           placeholder="07XX XXX XXX"
-                                           value="{{ old('phone') }}">
-                                    @error('phone')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">WhatsApp / Phone *</label>
+                                    <input type="tel" name="phone" required
+                                           class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                           value="{{ old('phone') }}" placeholder="07XX XXX XXX">
+                                    <p class="text-xs text-slate-400 mt-1">We'll confirm your order via WhatsApp on this number</p>
+                                    @error('phone')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Delivery Information -->
-                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.02)] p-6 mb-6">
-                            <h2 class="text-lg font-medium mb-4 flex items-center gap-2">
-                                <span class="w-6 h-6 bg-gold-deep/10 rounded-full flex items-center justify-center text-xs text-gold-deep">2</span>
-                                Delivery Information
+
+                        <!-- Step 2: Delivery Location -->
+                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.03)] p-6 mb-6">
+                            <h2 class="text-lg font-medium mb-5 flex items-center gap-2">
+                                <span class="w-7 h-7 bg-gold-deep text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                                Delivery Location
                             </h2>
-                            
-                            <div class="space-y-5">
-                                <!-- Address -->
+
+                            <div class="space-y-4">
                                 <div>
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Street Address *</label>
-                                    <input type="text" name="address" required 
-                                           class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                           placeholder="Street address, building, estate"
-                                           value="{{ old('address') }}">
-                                    @error('address')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Area / Estate / Landmark *</label>
+                                    <input type="text" name="address" required
+                                           class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                           value="{{ old('address') }}"
+                                           placeholder="e.g. Westlands, near Sarit Centre">
+                                    @error('address')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
 
-                                <!-- Delivery Zone Choice -->
-                                <div>
-                                    <label class="block text-xs uppercase tracking-wider text-slate-500 mb-3">Delivery Location *</label>
-                                    
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                        <!-- CBD Option -->
-                                        <label id="zone-cbd-label" 
-                                               class="flex items-start gap-3 cursor-pointer border-2 rounded-sm p-4 transition-all duration-200 border-gold-deep bg-gold-deep/5">
-                                            <input type="radio" name="delivery_zone" value="cbd" id="zone_cbd"
-                                                   class="mt-0.5 text-gold-deep focus:ring-gold-deep" checked>
-                                            <div class="flex-1">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="text-sm font-medium">Nairobi CBD</span>
-                                                    <span class="text-xs font-semibold text-gold-deep bg-gold-deep/10 px-2 py-0.5 rounded-full">Ksh 100</span>
-                                                </div>
-                                                <p class="text-xs text-slate-500 mt-1">Direct doorstep delivery within Nairobi CBD. Fast &amp; reliable.</p>
-                                            </div>
-                                        </label>
-
-                                        <!-- Pickup Mtaani Option -->
-                                        <label id="zone-mtaani-label"
-                                               class="flex items-start gap-3 cursor-pointer border-2 rounded-sm p-4 transition-all duration-200 border-rose-soft hover:border-gold-deep/40">
-                                            <input type="radio" name="delivery_zone" value="mtaani" id="zone_mtaani"
-                                                   class="mt-0.5 text-gold-deep focus:ring-gold-deep">
-                                            <div class="flex-1">
-                                                <div class="flex items-center justify-between">
-                                                    <span class="text-sm font-medium">Other Location</span>
-                                                    <span class="text-xs font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">Via Pickup Mtaani</span>
-                                                </div>
-                                                <p class="text-xs text-slate-500 mt-1">Delivered to a Pickup Mtaani agent near you. Fee varies by agent.</p>
-                                            </div>
-                                        </label>
-                                    </div>
-
-                                    {{-- Hidden field so the zone is always submitted --}}
-                                    <input type="hidden" name="delivery_zone" id="delivery_zone_hidden" value="{{ old('delivery_zone', 'cbd') }}">
-                                    @error('delivery_zone')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                <!-- CBD Fields (city auto-filled) -->
-                                <div id="cbdFields">
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">City/Town *</label>
-                                            <input type="text" name="city" id="city_input" required 
-                                                   class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-slate-50"
-                                                   value="Nairobi" readonly>
-                                            @error('city')
-                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">County *</label>
-                                            <input type="text" name="county" id="county_input"
-                                                   class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-slate-50"
-                                                   value="Nairobi" readonly>
-                                        </div>
-                                    </div>
-                                    <p class="text-xs text-gold-deep mt-2 flex items-center gap-1">
-                                        <span class="material-symbols-outlined text-sm">info</span>
-                                        Nairobi CBD delivery fee: <strong class="ml-1">Ksh 100</strong>
-                                    </p>
-                                </div>
-
-                                <!-- Pickup Mtaani Fields (hidden by default) -->
-                                <div id="mtaaniFields" class="hidden space-y-4">
-                                    <!-- Location text input -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Your Location / Area *</label>
-                                        <input type="text" name="mtaani_location" id="mtaani_location_input"
-                                               class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                               placeholder="e.g. Westlands, Thika, Mombasa Road..."
-                                               value="{{ old('mtaani_location') }}">
-                                        @error('mtaani_location')
-                                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                        @enderror
+                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">City / Town *</label>
+                                        <input type="text" name="city" required
+                                               class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                               value="{{ old('city') }}" placeholder="Nairobi">
+                                        @error('city')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                     </div>
 
-                                    <!-- City &amp; County for non-CBD -->
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">City/Town *</label>
-                                            <input type="text" name="city_mtaani" id="city_mtaani_input"
-                                                   class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                                   placeholder="e.g. Nairobi, Thika, Mombasa"
-                                                   value="{{ old('city_mtaani') }}">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">County *</label>
-                                            <select name="county_mtaani" id="county_mtaani_input"
-                                                    class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition">
-                                                <option value="">Select County</option>
-                                                <option value="Nairobi" {{ old('county_mtaani') == 'Nairobi' ? 'selected' : '' }}>Nairobi</option>
-                                                <option value="Mombasa" {{ old('county_mtaani') == 'Mombasa' ? 'selected' : '' }}>Mombasa</option>
-                                                <option value="Kisumu" {{ old('county_mtaani') == 'Kisumu' ? 'selected' : '' }}>Kisumu</option>
-                                                <option value="Nakuru" {{ old('county_mtaani') == 'Nakuru' ? 'selected' : '' }}>Nakuru</option>
-                                                <option value="Kiambu" {{ old('county_mtaani') == 'Kiambu' ? 'selected' : '' }}>Kiambu</option>
-                                                <option value="Machakos" {{ old('county_mtaani') == 'Machakos' ? 'selected' : '' }}>Machakos</option>
-                                                <option value="Uasin Gishu" {{ old('county_mtaani') == 'Uasin Gishu' ? 'selected' : '' }}>Uasin Gishu</option>
-                                                <option value="Kajiado" {{ old('county_mtaani') == 'Kajiado' ? 'selected' : '' }}>Kajiado</option>
-                                                <option value="Murang'a" {{ old('county_mtaani') == "Murang'a" ? 'selected' : '' }}>Murang'a</option>
-                                                <option value="Nyeri" {{ old('county_mtaani') == 'Nyeri' ? 'selected' : '' }}>Nyeri</option>
-                                                <option value="Meru" {{ old('county_mtaani') == 'Meru' ? 'selected' : '' }}>Meru</option>
-                                                <option value="Kilifi" {{ old('county_mtaani') == 'Kilifi' ? 'selected' : '' }}>Kilifi</option>
-                                                <option value="Kwale" {{ old('county_mtaani') == 'Kwale' ? 'selected' : '' }}>Kwale</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Pickup Mtaani Agent Selector -->
-                                    <div class="rounded-sm border border-rose-soft bg-slate-50 p-4">
-                                        <!-- Pickup Mtaani branding -->
-                                        <div class="flex items-center gap-2 mb-3">
-                                            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-white text-sm">store</span>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm font-semibold text-slate-700">Pickup Mtaani Agent</p>
-                                                <p class="text-xs text-slate-500">Select the agent nearest to you</p>
-                                            </div>
-                                        </div>
-
-                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">Pickup Mtaani Agent *</label>
-                                        <select name="pickup_location" id="pickupAgentSelect"
-                                                class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-white">
-                                            <option value="">-- Choose an agent near you --</option>
-                                            <optgroup label="Nairobi">
-                                                <option value="Westlands - Sarit Centre | 150" data-fee="150">Westlands – Sarit Centre (Ksh 150)</option>
-                                                <option value="Kilimani - Adams Arcade | 150" data-fee="150">Kilimani – Adams Arcade (Ksh 150)</option>
-                                                <option value="Eastlands - T-Mall | 150" data-fee="150">Eastlands – T-Mall (Ksh 150)</option>
-                                                <option value="Kasarani - Roasters Mall | 150" data-fee="150">Kasarani – Roasters Mall (Ksh 150)</option>
-                                                <option value="Langata - T-Mall | 150" data-fee="150">Langata – T-Mall (Ksh 150)</option>
-                                                <option value="Embakasi - Imara Daima | 150" data-fee="150">Embakasi – Imara Daima (Ksh 150)</option>
-                                            </optgroup>
-                                            <optgroup label="Kiambu / Thika Road">
-                                                <option value="Thika - Makongeni | 200" data-fee="200">Thika – Makongeni (Ksh 200)</option>
-                                                <option value="Ruiru - Stage | 200" data-fee="200">Ruiru – Stage (Ksh 200)</option>
-                                                <option value="Juja - Stage | 200" data-fee="200">Juja – Stage (Ksh 200)</option>
-                                                <option value="Kiambu Town | 200" data-fee="200">Kiambu Town (Ksh 200)</option>
-                                            </optgroup>
-                                            <optgroup label="Mombasa">
-                                                <option value="Mombasa CBD - Moi Avenue | 350" data-fee="350">Mombasa CBD – Moi Avenue (Ksh 350)</option>
-                                                <option value="Mombasa - Nyali Bridge | 350" data-fee="350">Mombasa – Nyali Bridge (Ksh 350)</option>
-                                            </optgroup>
-                                            <optgroup label="Nakuru">
-                                                <option value="Nakuru Town - Westside Mall | 300" data-fee="300">Nakuru Town – Westside Mall (Ksh 300)</option>
-                                            </optgroup>
-                                            <optgroup label="Upcountry">
-                                                <option value="Kisumu - Mega Plaza | 400" data-fee="400">Kisumu – Mega Plaza (Ksh 400)</option>
-                                                <option value="Eldoret - Zion Mall | 400" data-fee="400">Eldoret – Zion Mall (Ksh 400)</option>
-                                                <option value="Meru Town | 400" data-fee="400">Meru Town (Ksh 400)</option>
-                                            </optgroup>
+                                    <div>
+                                        <label class="block text-xs uppercase tracking-wider text-slate-500 mb-2">County *</label>
+                                        <select name="county" required
+                                                class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition bg-white">
+                                            <option value="">Select County</option>
+                                            @foreach([
+                                                'Nairobi','Mombasa','Kisumu','Nakuru','Kiambu',
+                                                'Machakos','Uasin Gishu','Kajiado','Murang\'a',
+                                                'Nyeri','Meru','Kilifi','Kwale','Siaya','Kakamega',
+                                                'Bungoma','Migori','Homa Bay','Kericho','Bomet',
+                                                'Nandi','Laikipia','Nyandarua','Embu','Tharaka-Nithi'
+                                            ] as $county)
+                                                <option value="{{ $county }}" {{ old('county') == $county ? 'selected' : '' }}>{{ $county }}</option>
+                                            @endforeach
                                         </select>
-                                        @error('pickup_location')
-                                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                        @enderror
-
-                                        <!-- Delivery fee indicator per agent -->
-                                        <div id="agentFeeInfo" class="hidden mt-3 flex items-center gap-2 text-sm text-orange-700 bg-orange-50 border border-orange-200 rounded-sm px-3 py-2">
-                                            <span class="material-symbols-outlined text-sm">local_shipping</span>
-                                            <span>Pickup Mtaani delivery fee: <strong id="agentFeeText">—</strong></span>
-                                        </div>
+                                        @error('county')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                     </div>
+                                </div>
 
-                                    <p class="text-xs text-slate-400 italic">
-                                        * Pickup Mtaani delivers to agents nationwide. Delivery cost is added to your order total.
-                                    </p>
+                                <!-- Delivery note -->
+                                <div class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-sm p-3 text-sm text-amber-800">
+                                    <span class="material-symbols-outlined text-amber-500 text-base mt-0.5 shrink-0">info</span>
+                                    <span>
+                                        Delivery fee will be <strong>confirmed with you via WhatsApp</strong> after you place your order,
+                                        based on your location (Nairobi CBD = Ksh 100, other areas via Pickup Mtaani).
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Payment Method -->
-                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.02)] p-6 mb-6">
-                            <h2 class="text-lg font-medium mb-4 flex items-center gap-2">
-                                <span class="w-6 h-6 bg-gold-deep/10 rounded-full flex items-center justify-center text-xs text-gold-deep">3</span>
+
+                        <!-- Step 3: Payment -->
+                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.03)] p-6 mb-6">
+                            <h2 class="text-lg font-medium mb-5 flex items-center gap-2">
+                                <span class="w-7 h-7 bg-gold-deep text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
                                 Payment Method
                             </h2>
-                            
-                            <div class="space-y-3">
-                                <label class="flex items-center gap-3 cursor-pointer p-3 border border-rose-soft rounded-sm hover:border-gold-deep/30 transition">
-                                    <input type="radio" name="payment_method" value="mpesa" class="text-gold-deep focus:ring-gold-deep" checked>
-                                    <span class="flex items-center gap-2">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAACUCAMAAABV5TcGAAABQVBMVEUOtSD///+N3Vr///3//f/8//8ArwAQtCKT3l8AqQAApwDX7dkOvSfZCSl7xX8ArQCK11m08LO477kSsirW89ls01GB2odzy01jykJBu0Tt//MguikAswAAtRdXv1c4uim/4sJj1G/s+Ono7unp9ew1zDsWxSmI4lvJ38j4//noACd0x3kAuQDf8ePFTTR1y2laz0Y+wjoux0CY4Zp71VBSwDtd02KG2Y3G+NFbujPS3NDs/+Wa1ZmKz4qm5a1Px1i46L56gB6VXx5kkyaj06NInya9NSjQKyOsTi5SjyaH7l5evV/GIyi3Uyugp0mS76TQAi59mjy9KS1numaqIgB3232FVDhhiSs6oRpYfgB+aDKhNkeTRUd1azp9gC+xJTnTaUaBjESGST+mMzee1l02pz2XiVHKY1KGZh+XUiSDv4/UUDLAAAAK7UlEQVR4nO2bC3caxxXHd9jH8BIraxHWih2EBBasgEhIiq04CMk2TuzipnJUpW6sOG1q95Hv/wF6751d2EWoTZpj8Knu78gIL/uY+c99zQwyDIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhlomkF7nsZnwqoBCsBnMLB+sbVTaPmH42m91gNSLkQSaT3Vh2Kz4dQI7M3ZWjOstB9q5aB0SI/sb99TTH2btqHbK4AYFilv//2DE/UUjjQQY6f5NIDhnxPz1ozoXyxknLIdUwbGbUS3U8TwwdSmc6M/0vvpOzpM+U3lwR42NLkmPaVJk8OP1dnG8cOnbAlV5M6h43tEjqQe9UoKThebe0Ry5HEOk4Lvy4KvVw5eQIF94XV1GOmbih5ZCGgos1Lr5Tkxu4eTc3ixN96BlOLth9cHjY7bqBM9NrJ5+jK5cjh7um2Z70BJuhKveIIw+tA2gdb21tVbciPm9lIzkeriUYPtqGIaduVI/u3eQopx8QBI9OQlMA5knlMIBLpuaoHupzHwVyGXrkhcaaWq00nLOyPtrzlATraK1+4aQvWwcDATmCikhj1n2JwhYL4iaP8SbgB5UenUqPtUShUpWxHJ7hfmnpk/veMqbMeWGbtm2bYuBOjkl1JEIbm1sgOSCJaNuJBgyCoHFM1uGAHHC1ME26CQ35KdrHblnfF49q4H5tlCN3eAIq6GPC2gyFJXb240hRNQ5EGOJVYuguxzpwNCxbWJPxlwYYhykScmRkMZEc6R/M4SCUohzWdPhtuA8IC+GgCHLgAeyzHcmi5ZDncDi0UB4LL8bTBvG9i/kT+IRsx3KXEU3JOvDpYpCTcW+PLFP3D+SAUNrKRu3SEd+TRSWrsRygQKyItgIR7gckhxl7RNJZnE4DVMP700Wgi7B7NRWZnTq0TToOhyv5JcmBzQ7tJlgCObF80KNRhYGL5FhNJlDjydNncncrdhaUQ5TrQLsB7gF9FW0jlqPZricYBWQcJGBjBLSbJNMo7rd018iNUFnRc29t9MeXwwytUU531z0SZkqOTCYxTMXnX618/eJl8XfvwTrcSI6S7/m+Px40TZSjWXMiOQpjPwmkrLOyjbcOTyG/e/74FEIuGEd0e3W4I+jJFvpdLViOHBjuwF16viL7KIbo83ZSDm02EPjh19MV4NXvv2kdRNYBze/kFTFE4xfhwI3l8IM4gSsD36mahCW4d2OchwykAul32iM6BSNFbhhiU3Z6qLH5OLccOdAQMDuMXOx0/g8Y69BkEnLopAcvxWeoxsrexd5nr3eLuYq+vEOfqqDWEyaYx3ke5DChTyBH/CCJ+UiqGnYVLGAtyHtQ0HaVgnI2LmirZQq+oxFKZjb1xQuNHySHBekfmlE+xIIooDQoEs6SzXg4uliZFJ9frGheXax8+xLqDmsiB7g+9AcvPM9N5VCReeiSVfllHXRF76oLpSdqkY+yuOdUmhBlxc7lPvqMMM+XI4cleoUQJRg5ynOGYO1CtBtJOdBR4K1XfPPVyt5KzN7eH69i68CSRDr9AhiWbZJ1YOoodLavtiOu+niKGoUWhW54yvnVlgLzUHG5pepopmY9d1gHH7QFeO9S5LCbnSY2sFALvK4VYjk6RLMHOWjO0soZb777k4dqTMW4ADv5cwULFJOsQ2LebVLYGTloJhYOdYIO9s3p9CjcaopNnGz7k+46+z2MoOFp1xlA+LLMcDA7oVmIHLbd9OvQr9AeumAcWC2O0F6x7jCwSM8a3vdvr1/KN69WEuytPAFnCamnOdfNuZg2YFBFo4RymLoQi7IU/HdMThEMmhRfsEDH151KP8qyaoh1m2h6RnDWI4eq35jvLkiO2hmOhij7xR0syZrjiRxkHfkf3l5fX79Lq/H1E8wsNMiDzn6l0jkq68Kr4GPdQcEnqsfpeE13WpXKUXkGsoONmGvaJxyqhWHWAyYR1KkwbXYWnWt13QGVQtnC5p0OqXiuO1M5dluZ199d/3T99sepn+DLX14r6Wo5rM3NnTAMKayCr4CNo3WgCdjTyV0kh1SuP6g3oiIW9DDFkIxAneogW+tCTK6EZB7ni9761Im2WQtq4Cu2Vd7B0NHsTOV48/yvP/x0ff23by9SpvHim6gMmy3FTbMNQRflwKFuJBhHGUQ5jn85qDdpkoOSNFEo2T8XIYSrdt51nVyAYcSEYKb+c/M/hhxoHW6urOccIdTZ9XwwkcP78Pd//HgBWWQvTid7K6/++eyLbGtDohzxbAUrF6pf2j6kiijjFi5rMWc1qi4MFxIuVCiOV+vUBdUXMOnDJZb9kGZP7crw6OioUrBoMlVy/lsHPo4cUp2Bk+i5fthRwbg5iR3v379/8/Ld9/968Rnw4um7Z8+3nKCK6x00o9XLFhgWKUaMsHTF2EGZCesORblU6krcPdvOFbHuUiqo+k3tMnVPqeoaBi0YjZCAdIdRue4vNrfEciiv28Y0AOkxbLhekMgsx62MaxSLcpco0mVeldZKI+uY5NNGmypJaUyL9OniJ1lH954Y5p2uh+vGXrcDiQlEAPeSPtzFQn/V83sYGCwNxf5iK/WJdRi5sU6awhwrOYkdcZGOEmAP4uv0BF/LYYmO7+Picd6hhT5Dz2jB0AofHJUAJzmboQiv3C4uznrBlYXRA+Qwgns6tJrx6gh6LXAuFxo9JtZhyK227lsz7xnz5EgxI4eLnaX5h/5YL/+YhVpqRiuN6hCXMsTm4Kzfr/b9HvmnGHW9KpbFYTgJynF6thYbTKdyGKojKLDhxDpIyxHP4KZbBCQHJlr0LyrSUzkR5cCubiYJA7m9iUsJFs4LyucnNoVSW3SCgFKUbfUKU6KSZsFyCEq0YLvSx/Ves5GXWo7Jali2NbMNYxh6cZDkoCI9iPaQ4u0UbR3TqkPjSPCOEIv0aCHdpEXCti+DLy2c9+94+XgTIt/X1crmQmcteSqkSQ5DVdr1evsSJwroLGI6Z7k/K0fxmOTIxc4yO7mI1kpn5YAKTJcbtknrPDR3blyq3CGum1i4LhYBquK0B46VggUKotdKm9pDq77f9ymUO9s76EVajkw2c2DQOvpkd2ydvtCA1kE9ukzJIUmOOeDi+OV5KKaVG870L6G6PbFwScG6VHHPIRNfYeYPrV7OUAuUI0om5PoYD+nRwRUtY/ailfRW5uBBv/9A0+/3j6MdfOdU96o02+C5+yzChUgbeOPR48kRqzeqOYbzUKfquk9yRD++TnQCIvDCpnJBqVMqlTrVmYCl/BJyqa0DdyFXJ7Raq6BPJrtuyF19WunDDXPulOagqFuO0R+fjtqPC4/bo5qPy0Pq7Gf8+OdxcgNfVvf1VQsu1PHJ3g1zDNAzuvj1jlXaoG5N9mkz2Wz8hQaPmg815czwzf+Cg16npzXXriQZgjj+Gli9KXhNyKHrNjKUBQbT+Y+j9UuJG4ORHPO+3zFp++wNaDdm3qMo/nio4HQtOhkpveSpk7v/xh7+Kma/zJD+MHKW2+TwbvuSzNzD3rTz3uT+xnSzM7VLvWCr+KX8Auu4S7AcKViOFCxHCpYjBcuRguVIwXKkYDlSsBwpWI4ULEcKliNFcbXFciS45Q84shuf4vz7YyNvk2P1TlqHlP35chzfQTEQ9fm8P/BZrd5JObDTW+sb92c4WHa7lsRS/srmE+Y2Pe6uSjPb97/uz0QZhmEYhmEYhmEYhmEYhmEYhmEYhmEYhmEYhmEYhmEYhvlU+DcZbhDcfhYJQQAAAABJRU5ErkJggg==" alt="M-PESA" class="h-6">
-                                        <span class="text-sm">M-PESA (Send payment prompt to phone)</span>
-                                    </span>
-                                </label>
-                            </div>
+
+                            <label class="flex items-center gap-3 cursor-pointer p-4 border-2 border-gold-deep bg-gold-deep/5 rounded-sm">
+                                <input type="radio" name="payment_method" value="mpesa" class="text-gold-deep focus:ring-gold-deep" checked>
+                                <span class="flex items-center gap-3">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAACUCAMAAABV5TcGAAABQVBMVEUOtSD///+N3Vr///3//f/8//8ArwAQtCKT3l8AqQAApwDX7dkOvSfZCSl7xX8ArQCK11m08LO477kSsirW89ls01GB2odzy01jykJBu0Tt//MguikAswAAtRdXv1c4uim/4sJj1G/s+Ono7unp9ew1zDsWxSmI4lvJ38j4//noACd0x3kAuQDf8ePFTTR1y2laz0Y+wjoux0CY4Zp71VBSwDtd02KG2Y3G+NFbujPS3NDs/+Wa1ZmKz4qm5a1Px1i46L56gB6VXx5kkyaj06NInya9NSjQKyOsTi5SjyaH7l5evV/GIyi3Uyugp0mS76TQAi59mjy9KS1numaqIgB3232FVDhhiSs6oRpYfgB+aDKhNkeTRUd1azp9gC+xJTnTaUaBjESGST+mMzee1l02pz2XiVHKY1KGZh+XUiSDv4/UUDLAAAAK7UlEQVR4nO2bC3caxxXHd9jH8BIraxHWih2EBBasgEhIiq04CMk2TuzipnJUpW6sOG1q95Hv/wF6751d2EWoTZpj8Knu78gIL/uY+c99zQwyDIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhGIZhlomkF7nsZnwqoBCsBnMLB+sbVTaPmH42m91gNSLkQSaT3Vh2Kz4dQI7M3ZWjOstB9q5aB0SI/sb99TTH2btqHbK4AYFilv//2DE/UUjjQQY6f5NIDhnxPz1ozoXyxknLIdUwbGbUS3U8TwwdSmc6M/0vvpOzpM+U3lwR42NLkmPaVJk8OP1dnG8cOnbAlV5M6h43tEjqQe9UoKThebe0Ry5HEOk4Lvy4KvVw5eQIF94XV1GOmbih5ZCGgos1Lr5Tkxu4eTc3ixN96BlOLth9cHjY7bqBM9NrJ5+jK5cjh7um2Z70BJuhKveIIw+tA2gdb21tVbciPm9lIzkeriUYPtqGIaduVI/u3eQopx8QBI9OQlMA5knlMIBLpuaoHupzHwVyGXrkhcaaWq00nLOyPtrzlATraK1+4aQvWwcDATmCikhj1n2JwhYL4iaP8SbgB5UenUqPtUShUpWxHJ7hfmnpk/veMqbMeWGbtm2bYuBOjkl1JEIbm1sgOSCJaNuJBgyCoHFM1uGAHHC1ME26CQ35KdrHblnfF49q4H5tlCN3eAIq6GPC2gyFJXb240hRNQ5EGOJVYuguxzpwNCxbWJPxlwYYhykScmRkMZEc6R/M4SCUohzWdPhtuA8IC+GgCHLgAeyzHcmi5ZDncDi0UB4LL8bTBvG9i/kT+IRsx3KXEU3JOvDpYpCTcW+PLFP3D+SAUNrKRu3SEd+TRSWrsRygQKyItgIR7gckhxl7RNJZnE4DVMP700Wgi7B7NRWZnTq0TToOhyv5JcmBzQ7tJlgCObF80KNRhYGL5FhNJlDjydNncncrdhaUQ5TrQLsB7gF9FW0jlqPZricYBWQcJGBjBLSbJNMo7rd018iNUFnRc29t9MeXwwytUU531z0SZkqOTCYxTMXnX618/eJl8XfvwTrcSI6S7/m+Px40TZSjWXMiOQpjPwmkrLOyjbcOTyG/e/74FEIuGEd0e3W4I+jJFvpdLViOHBjuwF16viL7KIbo83ZSDm02EPjh19MV4NXvv2kdRNYBze/kFTFE4xfhwI3l8IM4gSsD36mahCW4d2OchwykAul32iM6BSNFbhhiU3Z6qLH5OLccOdAQMDuMXOx0/g8Y69BkEnLopAcvxWeoxsrexd5nr3eLuYq+vEOfqqDWEyaYx3ke5DChTyBH/CCJ+UiqGnYVLGAtyHtQ0HaVgnI2LmirZQq+oxFKZjb1xQuNHySHBekfmlE+xIIooDQoEs6SzXg4uliZFJ9frGheXax8+xLqDmsiB7g+9AcvPM9N5VCReeiSVfllHXRF76oLpSdqkY+yuOdUmhBlxc7lPvqMMM+XI4cleoUQJRg5ynOGYO1CtBtJOdBR4K1XfPPVyt5KzN7eH69i68CSRDr9AhiWbZJ1YOoodLavtiOu+niKGoUWhW54yvnVlgLzUHG5pepopmY9d1gHH7QFeO9S5LCbnSY2sFALvK4VYjk6RLMHOWjO0soZb777k4dqTMW4ADv5cwULFJOsQ2LebVLYGTloJhYOdYIO9s3p9CjcaopNnGz7k+46+z2MoOFp1xlA+LLMcDA7oVmIHLbd9OvQr9AeumAcWC2O0F6x7jCwSM8a3vdvr1/KN69WEuytPAFnCamnOdfNuZg2YFBFo4RymLoQi7IU/HdMThEMmhRfsEDH151KP8qyaoh1m2h6RnDWI4eq35jvLkiO2hmOhij7xR0syZrjiRxkHfkf3l5fX79Lq/H1E8wsNMiDzn6l0jkq68Kr4GPdQcEnqsfpeE13WpXKUXkGsoONmGvaJxyqhWHWAyYR1KkwbXYWnWt13QGVQtnC5p0OqXiuO1M5dluZ199d/3T99sepn+DLX14r6Wo5rM3NnTAMKayCr4CNo3WgCdjTyV0kh1SuP6g3oiIW9DDFkIxAneogW+tCTK6EZB7ni9761Im2WQtq4Cu2Vd7B0NHsTOV48/yvP/x0ff23by9SpvHim6gMmy3FTbMNQRflwKFuJBhHGUQ5jn85qDdpkoOSNFEo2T8XIYSrdt51nVyAYcSEYKb+c/M/hhxoHW6urOccIdTZ9XwwkcP78Pd//HgBWWQvTid7K6/++eyLbGtDohzxbAUrF6pf2j6kiijjFi5rMWc1qi4MFxIuVCiOV+vUBdUXMOnDJZb9kGZP7crw6OioUrBoMlVy/lsHPo4cUp2Bk+i5fthRwbg5iR3v379/8/Ld9/968Rnw4um7Z8+3nKCK6x00o9XLFhgWKUaMsHTF2EGZCesORblU6krcPdvOFbHuUiqo+k3tMnVPqeoaBi0YjZCAdIdRue4vNrfEciiv28Y0AOkxbLhekMgsx62MaxSLcpco0mVeldZKI+uY5NNGmypJaUyL9OniJ1lH954Y5p2uh+vGXrcDiQlEAPeSPtzFQn/V83sYGCwNxf5iK/WJdRi5sU6awhwrOYkdcZGOEmAP4uv0BF/LYYmO7+Picd6hhT5Dz2jB0AofHJUAJzmboQiv3C4uznrBlYXRA+Qwgns6tJrx6gh6LXAuFxo9JtZhyK227lsz7xnz5EgxI4eLnaX5h/5YL/+YhVpqRiuN6hCXMsTm4Kzfr/b9HvmnGHW9KpbFYTgJynF6thYbTKdyGKojKLDhxDpIyxHP4KZbBCQHJlr0LyrSUzkR5cCubiYJA7m9iUsJFs4LyucnNoVSW3SCgFKUbfUKU6KSZsFyCEq0YLvSx/Ves5GXWo7Jali2NbMNYxh6cZDkoCI9iPaQ4u0UbR3TqkPjSPCOEIv0aCHdpEXCti+DLy2c9+94+XgTIt/X1crmQmcteSqkSQ5DVdr1evsSJwroLGI6Z7k/K0fxmOTIxc4yO7mI1kpn5YAKTJcbtknrPDR3blyq3CGum1i4LhYBquK0B46VggUKotdKm9pDq77f9ymUO9s76EVajkw2c2DQOvpkd2ydvtCA1kE9ukzJIUmOOeDi+OV5KKaVG870L6G6PbFwScG6VHHPIRNfYeYPrV7OUAuUI0om5PoYD+nRwRUtY/ailfRW5uBBv/9A0+/3j6MdfOdU96o02+C5+yzChUgbeOPR48kRqzeqOYbzUKfquk9yRD++TnQCIvDCpnJBqVMqlTrVmYCl/BJyqa0DdyFXJ7Raq6BPJrtuyF19WunDDXPulOagqFuO0R+fjtqPC4/bo5qPy0Pq7Gf8+OdxcgNfVvf1VQsu1PHJ3g1zDNAzuvj1jlXaoG5N9mkz2Wz8hQaPmg815czwzf+Cg16npzXXriQZgjj+Gli9KXhNyKHrNjKUBQbT+Y+j9UuJG4ORHPO+3zFp++wNaDdm3qMo/nio4HQtOhkpveSpk7v/xh7+Kma/zJD+MHKW2+TwbvuSzNzD3rTz3uT+xnSzM7VLvWCr+KX8Auu4S7AcKViOFCxHCpYjBcuRguVIwXKkYDlSsBwpWI4ULEcKliNFcbXFciS45Q84shuf4vz7YyNvk2P1TlqHlP35chzfQTEQ9fm8P/BZrd5JObDTW+sb92c4WHa7lsRS/srmE+Y2Pe6uSjPb97/uz0QZhmEYhmEYhmEYhmEYhmEYhmEYhmEYhmEYhmEYhmEYhvlU+DcZbhDcfhYJQQAAAABJRU5ErkJggg==" alt="M-PESA" class="h-7">
+                                    <div>
+                                        <p class="text-sm font-medium">M-PESA</p>
+                                        <p class="text-xs text-slate-500">Payment details shared via WhatsApp after order confirmation</p>
+                                    </div>
+                                </span>
+                            </label>
                         </div>
-                        
-                        <!-- Additional Notes -->
-                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.02)] p-6">
-                            <h2 class="text-lg font-medium mb-4 flex items-center gap-2">
-                                <span class="w-6 h-6 bg-gold-deep/10 rounded-full flex items-center justify-center text-xs text-gold-deep">4</span>
-                                Additional Notes (Optional)
+
+                        <!-- Step 4: Notes -->
+                        <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.03)] p-6">
+                            <h2 class="text-lg font-medium mb-5 flex items-center gap-2">
+                                <span class="w-7 h-7 bg-gold-deep text-white rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                                Additional Notes <span class="text-xs text-slate-400 font-normal ml-1">(Optional)</span>
                             </h2>
-                            
-                            <textarea name="notes" rows="3" 
-                                      class="w-full border border-rose-soft rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
-                                      placeholder="Any special instructions for delivery?">{{ old('notes') }}</textarea>
+
+                            <textarea name="notes" rows="3"
+                                      class="w-full border border-slate-200 rounded-sm px-4 py-3 text-sm focus:border-gold-deep focus:ring-1 focus:ring-gold-deep outline-none transition"
+                                      placeholder="Any special instructions? Preferred delivery time, scent preferences, gift wrapping, etc.">{{ old('notes') }}</textarea>
                         </div>
                     </form>
                 </div>
-                
-                <!-- Right Column - Order Summary -->
+
+                <!-- Right Column – Order Summary -->
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.02)] p-6 sticky top-24">
-                        <h2 class="text-lg font-medium mb-4">Order Summary</h2>
-                        
+                    <div class="bg-white rounded-sm shadow-[0_5px_20px_rgba(0,0,0,0.03)] p-6 sticky top-24">
+                        <h2 class="text-lg font-medium mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-gold-deep text-xl">receipt_long</span>
+                            Order Summary
+                        </h2>
+
                         <!-- Cart Items -->
                         <div class="max-h-80 overflow-y-auto mb-4 space-y-3 custom-scrollbar">
                             @forelse($cartItems as $item)
                                 <div class="flex gap-3 text-sm">
                                     @if($item['product']->featured_image)
-                                        <img src="{{ asset($item['product']->featured_image) }}" 
+                                        <img src="{{ asset($item['product']->featured_image) }}"
                                              alt="{{ $item['product']->name }}"
-                                             class="w-16 h-16 object-cover rounded-sm">
+                                             class="w-14 h-14 object-cover rounded-sm shrink-0">
                                     @else
-                                        <div class="w-16 h-16 bg-rose-soft/30 rounded-sm flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-slate-400">image</span>
+                                        <div class="w-14 h-14 bg-rose-soft/30 rounded-sm flex items-center justify-center shrink-0">
+                                            <span class="material-symbols-outlined text-slate-400 text-sm">image</span>
                                         </div>
                                     @endif
-                                    
-                                    <div class="flex-1">
-                                        <h4 class="font-medium">{{ $item['product']->name }}</h4>
+
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="font-medium truncate">{{ $item['product']->name }}</h4>
                                         <p class="text-xs text-slate-500">
                                             {{ ucfirst($item['size']) }} · Qty: {{ $item['quantity'] }}
                                         </p>
-                                        <p class="text-xs text-gold-deep mt-1">Kshs {{ number_format($item['total'], 2) }}</p>
+                                        <p class="text-xs text-gold-deep mt-0.5 font-medium">
+                                            Kshs {{ number_format($item['total'], 2) }}
+                                        </p>
                                     </div>
                                 </div>
                             @empty
                                 <p class="text-sm text-slate-500 text-center py-4">Your cart is empty</p>
                             @endforelse
                         </div>
-                        
+
                         <!-- Totals -->
-                        <div class="border-t border-rose-soft pt-4 space-y-2">
+                        <div class="border-t border-slate-100 pt-4 space-y-2">
                             <div class="flex justify-between text-sm">
-                                <span class="text-slate-500">Subtotal</span>
-                                <span>Kshs {{ number_format($subtotal, 2) }}</span>
+                                <span class="text-slate-500">Subtotal ({{ count($cartItems) }} item{{ count($cartItems) != 1 ? 's' : '' }})</span>
+                                <span class="font-medium">Kshs {{ number_format($subtotal, 2) }}</span>
                             </div>
                             <div class="flex justify-between text-sm">
-                                <span class="text-slate-500" id="shippingLabel">Delivery (Nairobi CBD)</span>
-                                <span id="shippingDisplay" class="font-medium">Kshs 100.00</span>
+                                <span class="text-slate-500">Delivery Fee</span>
+                                <span class="text-[#25D366] font-medium flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.528 5.845L.057 23.882l6.188-1.448A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.791 9.791 0 01-4.988-1.365l-.356-.213-3.676.861.93-3.582-.234-.368A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/>
+                                    </svg>
+                                    Confirmed via WhatsApp
+                                </span>
                             </div>
-                            <div class="flex justify-between text-lg font-medium pt-2 border-t border-rose-soft">
-                                <span>Total</span>
-                                <span class="text-gold-deep" id="totalDisplay">Kshs {{ number_format($subtotal + 100, 2) }}</span>
+                            <div class="flex justify-between text-base font-semibold pt-2 border-t border-slate-100">
+                                <span>Products Total</span>
+                                <span class="text-gold-deep">Kshs {{ number_format($subtotal, 2) }}</span>
                             </div>
-                        </div>
-                        
-                        <!-- Delivery Zone Badge -->
-                        <div id="deliveryBadge" class="mt-3 text-xs text-center rounded-sm px-3 py-2 bg-gold-deep/10 text-gold-deep font-medium flex items-center justify-center gap-1">
-                            <span class="material-symbols-outlined text-sm">location_on</span>
-                            <span id="deliveryBadgeText">Nairobi CBD – Direct Delivery</span>
                         </div>
 
-                        <!-- Hidden fields passed to backend -->
-                        <input type="hidden" name="shipping_fee" id="shipping_fee_hidden" value="100" form="checkoutForm">
-                        
-                        <!-- Place Order Button -->
-                        <button type="submit" form="checkoutForm" class="w-full bg-gold-deep text-white py-4 rounded-full text-sm tracking-widest uppercase hover:opacity-90 transition mt-6">
+                        <!-- Place Order -->
+                        <button type="submit" form="checkoutForm"
+                                class="w-full bg-gold-deep text-white py-4 rounded-full text-sm tracking-widest uppercase hover:opacity-90 active:scale-95 transition-all mt-6 flex items-center justify-center gap-2 font-medium">
+                            <span class="material-symbols-outlined text-base">shopping_bag</span>
                             Place Order
                         </button>
-                        
-                        <!-- Security Notice -->
-                        <p class="text-xs text-center text-slate-400 mt-4 flex items-center justify-center gap-1">
+
+                        <!-- WhatsApp note -->
+                        <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                            <svg class="w-4 h-4 text-[#25D366] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.528 5.845L.057 23.882l6.188-1.448A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.791 9.791 0 01-4.988-1.365l-.356-.213-3.676.861.93-3.582-.234-.368A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/>
+                            </svg>
+                            You'll be redirected to WhatsApp to confirm your order
+                        </div>
+
+                        <p class="text-xs text-center text-slate-400 mt-3 flex items-center justify-center gap-1">
                             <span class="material-symbols-outlined text-sm">lock</span>
-                            Secure checkout · Your info is protected
+                            Secure · Your info is protected
                         </p>
                     </div>
                 </div>
@@ -394,168 +277,15 @@
 
 @push('scripts')
 <script>
-    const SUBTOTAL = {{ $subtotal }};
-    const CBD_FEE  = 100;
-
-    // ── Elements ──────────────────────────────────────────────────────────────
-    const zoneCbd       = document.getElementById('zone_cbd');
-    const zoneMtaani    = document.getElementById('zone_mtaani');
-    const cbdLabel      = document.getElementById('zone-cbd-label');
-    const mtaaniLabel   = document.getElementById('zone-mtaani-label');
-    const cbdFields     = document.getElementById('cbdFields');
-    const mtaaniFields  = document.getElementById('mtaaniFields');
-    const agentSelect   = document.getElementById('pickupAgentSelect');
-    const agentFeeInfo  = document.getElementById('agentFeeInfo');
-    const agentFeeText  = document.getElementById('agentFeeText');
-    const shippingLabel = document.getElementById('shippingLabel');
-    const shippingDisp  = document.getElementById('shippingDisplay');
-    const totalDisp     = document.getElementById('totalDisplay');
-    const feeHidden     = document.getElementById('shipping_fee_hidden');
-    const badgeText     = document.getElementById('deliveryBadgeText');
-    const zoneHidden    = document.getElementById('delivery_zone_hidden');
-
-    // City / county inputs (we need to merge mtaani city into city field on submit)
-    const cityInput         = document.getElementById('city_input');
-    const countyInput       = document.getElementById('county_input');
-    const cityMtaaniInput   = document.getElementById('city_mtaani_input');
-    const countyMtaaniInput = document.getElementById('county_mtaani_input');
-    const mtaaniLocInput    = document.getElementById('mtaani_location_input');
-
-    // Format currency
-    function fmt(n) {
-        return 'Kshs ' + n.toLocaleString('en-KE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    // Update the order summary panel
-    function updateSummary(fee, label) {
-        shippingLabel.textContent = label;
-        shippingDisp.textContent  = fmt(fee);
-        totalDisp.textContent     = fmt(SUBTOTAL + fee);
-        feeHidden.value           = fee;
-    }
-
-    // Switch to CBD mode
-    function activateCBD() {
-        // Style labels
-        cbdLabel.classList.add('border-gold-deep', 'bg-gold-deep/5');
-        cbdLabel.classList.remove('border-rose-soft');
-        mtaaniLabel.classList.remove('border-gold-deep', 'bg-gold-deep/5');
-        mtaaniLabel.classList.add('border-rose-soft');
-
-        // Show/hide fields
-        cbdFields.classList.remove('hidden');
-        mtaaniFields.classList.add('hidden');
-
-        // Make city/county readonly CBD
-        cityInput.value    = 'Nairobi';
-        countyInput.value  = 'Nairobi';
-        cityInput.readOnly = true;
-        cityInput.classList.add('bg-slate-50');
-
-        // Remove required from mtaani fields
-        agentSelect.removeAttribute('required');
-        mtaaniLocInput.removeAttribute('required');
-        cityMtaaniInput.removeAttribute('required');
-        countyMtaaniInput.removeAttribute('required');
-
-        // Restore required on base city
-        cityInput.setAttribute('required', 'required');
-        countyInput.setAttribute('required', 'required');
-
-        zoneHidden.value = 'cbd';
-        updateSummary(CBD_FEE, 'Delivery (Nairobi CBD)');
-        badgeText.textContent = 'Nairobi CBD – Direct Delivery';
-    }
-
-    // Switch to Pickup Mtaani mode
-    function activateMtaani() {
-        // Style labels
-        mtaaniLabel.classList.add('border-gold-deep', 'bg-gold-deep/5');
-        mtaaniLabel.classList.remove('border-rose-soft');
-        cbdLabel.classList.remove('border-gold-deep', 'bg-gold-deep/5');
-        cbdLabel.classList.add('border-rose-soft');
-
-        // Show/hide fields
-        cbdFields.classList.add('hidden');
-        mtaaniFields.classList.remove('hidden');
-
-        // Remove required from CBD city
-        cityInput.removeAttribute('required');
-
-        // Add required to mtaani fields
-        agentSelect.setAttribute('required', 'required');
-        mtaaniLocInput.setAttribute('required', 'required');
-        cityMtaaniInput.setAttribute('required', 'required');
-        countyMtaaniInput.setAttribute('required', 'required');
-
-        zoneHidden.value = 'mtaani';
-
-        // Reflect agent fee if already selected
-        handleAgentChange();
-        badgeText.textContent = 'Pickup Mtaani – Agent Delivery';
-    }
-
-    // Handle agent dropdown change
-    function handleAgentChange() {
-        const selected = agentSelect.options[agentSelect.selectedIndex];
-        const fee = selected ? parseInt(selected.getAttribute('data-fee')) : NaN;
-
-        if (!isNaN(fee) && selected.value !== '') {
-            agentFeeInfo.classList.remove('hidden');
-            agentFeeText.textContent = 'Ksh ' + fee.toLocaleString('en-KE');
-            updateSummary(fee, 'Delivery (Pickup Mtaani)');
-        } else {
-            agentFeeInfo.classList.add('hidden');
-            updateSummary(0, 'Delivery (select agent)');
-            shippingDisp.textContent = '—';
-            totalDisp.textContent    = '—';
-        }
-    }
-
-    // ── Event Listeners ───────────────────────────────────────────────────────
-    zoneCbd.addEventListener('change', () => { if (zoneCbd.checked) activateCBD(); });
-    zoneMtaani.addEventListener('change', () => { if (zoneMtaani.checked) activateMtaani(); });
-
-    // Also allow clicking the card labels to toggle
-    cbdLabel.addEventListener('click', () => { zoneCbd.checked = true; activateCBD(); });
-    mtaaniLabel.addEventListener('click', () => { zoneMtaani.checked = true; activateMtaani(); });
-
-    agentSelect.addEventListener('change', handleAgentChange);
-
-    // ── Before form submit: merge city/county ──────────────────────────────────
-    document.getElementById('checkoutForm').addEventListener('submit', function() {
-        if (zoneMtaani.checked) {
-            // Copy mtaani city/county into the main city/county fields so the controller receives them
-            cityInput.readOnly    = false;
-            countyInput.readOnly  = false;
-            cityInput.value       = cityMtaaniInput.value;
-            countyInput.value     = countyMtaaniInput.value;
-        }
-    });
-
-    // ── Phone formatter ────────────────────────────────────────────────────────
+    // Phone formatter
     document.querySelector('input[name="phone"]').addEventListener('input', function(e) {
         let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 0) {
-            if (value.startsWith('0')) {
-                value = '254' + value.substring(1);
-            }
-            if (value.length > 12) {
-                value = value.substring(0, 12);
-            }
+        if (value.length > 0 && value.startsWith('0')) {
+            value = '254' + value.substring(1);
         }
+        if (value.length > 12) value = value.substring(0, 12);
         e.target.value = value;
     });
-
-    // ── Init on page load ──────────────────────────────────────────────────────
-    const savedZone = '{{ old("delivery_zone", "cbd") }}';
-    if (savedZone === 'mtaani') {
-        zoneMtaani.checked = true;
-        activateMtaani();
-    } else {
-        zoneCbd.checked = true;
-        activateCBD();
-    }
 </script>
 @endpush
 @endsection
