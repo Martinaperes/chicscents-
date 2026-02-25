@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Chic Scents</title>
+    <title>Admin Panel - ScentCepts</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,10 +37,10 @@
         <!-- Logo -->
         <div class="px-6 py-8 flex items-center gap-4 border-b border-[#f1e6e2]">
             <div class="w-10 h-10 rounded-xl bg-[#ad7e6c] flex items-center justify-center font-black text-white text-lg shadow">
-                <img src="{{ asset('images/hero/chicscentslogo.jpeg') }}" alt="Chic Scents Logo" class="w-full h-full object-contain">
+                <img src="{{ asset('images/hero/chicscentslogo.jpeg') }}" alt="ScentCepts Logo" class="w-full h-full object-contain">
             </div>
             <div>
-                <h1 class="text-sm font-black uppercase tracking-tight text-slate-800">Chic Scents</h1>
+                <h1 class="text-sm font-black uppercase tracking-tight text-slate-800">ScentCepts</h1>
                 <p class="text-[10px] uppercase font-bold tracking-widest text-[#ad7e6c]">Management Hub</p>
             </div>
         </div>
@@ -188,7 +188,7 @@
 
         <!-- FOOTER -->
         <footer class="p-6 border-t border-[#f1e6e2] bg-white text-center text-xs text-slate-400">
-            © 2026 Chic Scents Admin Panel
+            © 2026 ScentCepts Admin Panel
         </footer>
 
     </div>
