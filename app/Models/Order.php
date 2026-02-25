@@ -15,8 +15,10 @@ class Order extends Model
         'address',
         'city',
         'county',
-        'delivery_method',
-        'pickup_location',
+        'delivery_zone',      // 'cbd' or 'mtaani'
+        'delivery_method',    // 'doorstep' or 'pickup'
+        'pickup_location',    // Pickup Mtaani agent name
+        'mtaani_location',    // Customer's free-text area description
         'payment_method',
         'payment_status',
         'order_status',
