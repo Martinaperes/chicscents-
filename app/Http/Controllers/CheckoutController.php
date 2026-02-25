@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Perfume;
+use App\Models\Order;
+use App\Models\OrderItem;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -49,7 +53,7 @@ class CheckoutController extends Controller
     }
 
     /**
-     * Process checkout – build WhatsApp message and redirect to success page
+     * Process checkout – save to DB, build WhatsApp message and redirect to success page
      */
     public function process(Request $request)
     {
@@ -71,92 +75,137 @@ class CheckoutController extends Controller
             return back()->with('error', 'Your cart is empty');
         }
 
-        // Build cart items & subtotal
-        $cartItems = [];
-        $subtotal  = 0;
+        // Build cart items details for saving and WhatsApp
+        $dbItems = [];
+        $subtotal = 0;
 
         foreach ($cart as $item) {
             $product = Perfume::find($item['product_id']);
             if ($product) {
-                $price     = $item['price'];
+                $price = $item['price'];
                 $itemTotal = $price * $item['quantity'];
                 $subtotal += $itemTotal;
 
-                $cartItems[] = [
-                    'name'     => $product->name,
-                    'brand'    => optional($product->brand)->name ?? '',
-                    'size'     => ucfirst($item['size']),
+                $dbItems[] = [
+                    'perfume_id' => $product->id,
+                    'name' => $product->name,
+                    'brand' => optional($product->brand)->name ?? '',
+                    'size' => ucfirst($item['size']),
                     'quantity' => $item['quantity'],
-                    'price'    => $price,
-                    'total'    => $itemTotal,
+                    'price' => $price,
+                    'total' => $itemTotal,
                 ];
             }
         }
 
-        // Generate a simple order reference
+        // Generate an order reference (we'll also use order ID)
         $orderRef = 'SC-' . strtoupper(substr(md5(uniqid()), 0, 6));
 
-        // ── Build WhatsApp message ──────────────────────────────────────────────
-        $lines = [];
-        $lines[] = "🛍️ *NEW ORDER – ScentCepts*";
-        $lines[] = "Order Ref: *{$orderRef}*";
-        $lines[] = "─────────────────────";
-        $lines[] = "";
-        $lines[] = "👤 *Customer Details*";
-        $lines[] = "Name: {$validated['first_name']} {$validated['last_name']}";
-        $lines[] = "Phone: {$validated['phone']}";
-        $lines[] = "Email: {$validated['email']}";
-        $lines[] = "";
-        $lines[] = "📍 *Delivery Location*";
-        $lines[] = "Address: {$validated['address']}";
-        $lines[] = "City: {$validated['city']}";
-        $lines[] = "County: {$validated['county']}";
-        $lines[] = "";
-        $lines[] = "🧴 *Order Items*";
+        try {
+            DB::beginTransaction();
 
-        foreach ($cartItems as $index => $item) {
-            $num = $index + 1;
-            $brand = $item['brand'] ? "{$item['brand']} – " : '';
-            $lines[] = "{$num}. {$brand}{$item['name']}";
-            $lines[] = "   Size: {$item['size']} | Qty: {$item['quantity']} | Ksh " . number_format($item['total']);
-        }
+            // 1. Save Order to Database
+            $order = Order::create([
+                'user_id'         => Auth::id(),
+                'first_name'      => $validated['first_name'],
+                'last_name'       => $validated['last_name'],
+                'email'           => $validated['email'],
+                'phone'           => $validated['phone'],
+                'address'         => $validated['address'],
+                'city'            => $validated['city'],
+                'county'          => $validated['county'],
+                'delivery_zone'   => $request->input('delivery_zone', 'cbd'),
+                'delivery_method' => $request->input('delivery_method', 'doorstep'),
+                'mtaani_location' => $request->input('mtaani_location'),
+                'pickup_location' => $request->input('pickup_location'),
+                'payment_method'  => $validated['payment_method'],
+                'payment_status'  => 'pending',
+                'order_status'    => 'pending',
+                'total_amount'    => $subtotal,
+                'shipping_amount' => 0, // Confirmed on WhatsApp
+                'notes'           => $validated['notes'],
+            ]);
 
-        $lines[] = "";
-        $lines[] = "─────────────────────";
-        $lines[] = "🧾 *Products Total: Ksh " . number_format($subtotal) . "*";
-        $lines[] = "💳 Payment: M-PESA";
-        $lines[] = "🚚 Delivery fee: TBD (please confirm)";
+            // 2. Save Order Items
+            foreach ($dbItems as $item) {
+                OrderItem::create([
+                    'order_id'   => $order->id,
+                    'perfume_id' => $item['perfume_id'],
+                    'size'       => $item['size'],
+                    'quantity'   => $item['quantity'],
+                    'price'      => $item['price'],
+                ]);
+            }
 
-        if (!empty($validated['notes'])) {
+            DB::commit();
+
+            // ── Build WhatsApp message ──────────────────────────────────────────────
+            $lines = [];
+            $lines[] = "🛍️ *NEW ORDER – ScentCepts*";
+            $lines[] = "Order Ref: *#{$order->id} ({$orderRef})*";
+            $lines[] = "─────────────────────";
             $lines[] = "";
-            $lines[] = "📝 *Notes:* {$validated['notes']}";
+            $lines[] = "👤 *Customer Details*";
+            $lines[] = "Name: {$validated['first_name']} {$validated['last_name']}";
+            $lines[] = "Phone: {$validated['phone']}";
+            $lines[] = "Email: {$validated['email']}";
+            $lines[] = "";
+            $lines[] = "📍 *Delivery Location*";
+            $lines[] = "Address: {$validated['address']}";
+            $lines[] = "City: {$validated['city']}";
+            $lines[] = "County: {$validated['county']}";
+            $lines[] = "";
+            $lines[] = "🧴 *Order Items*";
+
+            foreach ($dbItems as $index => $item) {
+                $num = $index + 1;
+                $brandStr = $item['brand'] ? "{$item['brand']} – " : '';
+                $lines[] = "{$num}. {$brandStr}{$item['name']}";
+                $lines[] = "   Size: {$item['size']} | Qty: {$item['quantity']} | Ksh " . number_format($item['total']);
+            }
+
+            $lines[] = "";
+            $lines[] = "─────────────────────";
+            $lines[] = "🧾 *Products Total: Ksh " . number_format($subtotal) . "*";
+            $lines[] = "💳 Payment: " . strtoupper($validated['payment_method']);
+            $lines[] = "🚚 Delivery fee: TBD (please confirm)";
+
+            if (!empty($validated['notes'])) {
+                $lines[] = "";
+                $lines[] = "📝 *Notes:* {$validated['notes']}";
+            }
+
+            $lines[] = "";
+            $lines[] = "_Sent from ScentCepts website_";
+
+            $whatsappText = implode("\n", $lines);
+            $whatsappUrl = 'https://wa.me/' . self::SELLER_WHATSAPP . '?text=' . rawurlencode($whatsappText);
+
+            // Store summary in session for success page
+            Session::put('order_summary', [
+                'id'           => $order->id,
+                'ref'          => $orderRef,
+                'customer'     => $validated['first_name'] . ' ' . $validated['last_name'],
+                'phone'        => $validated['phone'],
+                'email'        => $validated['email'],
+                'address'      => $validated['address'],
+                'city'         => $validated['city'],
+                'county'       => $validated['county'],
+                'items'        => $dbItems,
+                'subtotal'     => $subtotal,
+                'notes'        => $validated['notes'],
+                'whatsapp_url' => $whatsappUrl,
+            ]);
+
+            // Clear the cart
+            Session::forget('cart');
+
+            return redirect()->route('checkout.success');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Something went wrong while processing your order: ' . $e->getMessage());
         }
-
-        $lines[] = "";
-        $lines[] = "_Sent from ScentCepts website_";
-
-        $whatsappText    = implode("\n", $lines);
-        $whatsappUrl     = 'https://wa.me/' . self::SELLER_WHATSAPP . '?text=' . rawurlencode($whatsappText);
-
-        // Store order summary in session for the success page
-        Session::put('order_summary', [
-            'ref'        => $orderRef,
-            'customer'   => $validated['first_name'] . ' ' . $validated['last_name'],
-            'phone'      => $validated['phone'],
-            'email'      => $validated['email'],
-            'address'    => $validated['address'],
-            'city'       => $validated['city'],
-            'county'     => $validated['county'],
-            'items'      => $cartItems,
-            'subtotal'   => $subtotal,
-            'notes'      => $validated['notes'] ?? null,
-            'whatsapp_url' => $whatsappUrl,
-        ]);
-
-        // Clear the cart
-        Session::forget('cart');
-
-        return redirect()->route('checkout.success');
     }
 
     /**
