@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $perfume->name . ' | Chic Scents')
+@section('title', $perfume->name . ' | ScentCepts')
 
 @section('content')
     <!-- Top Spacer -->
