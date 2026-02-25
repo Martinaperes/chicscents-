@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shopping Cart | Chic Scents')
+@section('title', 'Shopping Cart | ScentCepts')
 
 @section('content')
 <div class="min-h-screen bg-ivory">
