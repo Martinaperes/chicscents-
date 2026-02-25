@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shipping & Returns | Chic Scents')
+@section('title', 'Shipping & Returns | ScentCepts')
 
 @section('content')
 <main class="pb-16 md:pb-32">
@@ -42,7 +42,7 @@
                     We Deliver <span class="italic text-gold-deep">Everywhere</span>
                 </h2>
                 <p class="text-xs md:text-sm text-slate-500">
-                    Chic Scents ships throughout Kenya. Here's how it works.
+                    ScentCepts ships throughout Kenya. Here's how it works.
                 </p>
             </div>
 
