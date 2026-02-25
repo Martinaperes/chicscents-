@@ -5,10 +5,15 @@
 
 @section('content')
 <div class="mb-10 flex items-center justify-between">
-    <a href="{{ route('admin.orders') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-adm-accent transition-all uppercase tracking-widest">
-        <span class="material-symbols-outlined text-sm">arrow_back</span>
-        Return to Dispatch
-    </a>
+    <div class="flex flex-col">
+        <a href="{{ route('admin.orders') }}" class="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-adm-accent transition-all uppercase tracking-widest mb-2">
+            <span class="material-symbols-outlined text-sm">arrow_back</span>
+            Return to Dispatch
+        </a>
+        <h3 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">
+            REF-{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}
+        </h3>
+    </div>
 
     <div class="flex items-center gap-4">
         <button onclick="window.print()" class="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-600 px-6 py-3 rounded-xl text-xs font-bold hover:bg-slate-50 transition-all shadow-sm">
@@ -47,18 +52,18 @@
                         <tr class="hover:bg-slate-50/30 transition-colors">
                             <td class="px-8 py-5">
                                 <div class="flex items-center gap-4">
-                                    <div class="w-10 h-10 bg-slate-100 rounded-lg flex-shrink-0 border border-slate-200 overflow-hidden">
-                                        @if($item->product && $item->product->featured_image)
-                                            <img src="{{ asset($item->product->featured_image) }}" class="w-full h-full object-cover">
+                                    <div class="w-16 h-16 bg-white rounded-xl flex-shrink-0 border border-slate-200 shadow-sm overflow-hidden p-1">
+                                        @if($item->perfume && $item->perfume->featured_image)
+                                            <img src="{{ asset($item->perfume->featured_image) }}" class="w-full h-full object-contain">
                                         @else
-                                            <div class="w-full h-full flex items-center justify-center text-slate-300">
-                                                <span class="material-symbols-outlined text-sm">image</span>
+                                            <div class="w-full h-full flex items-center justify-center bg-slate-50 text-slate-300">
+                                                <span class="material-symbols-outlined text-xl">image</span>
                                             </div>
                                         @endif
                                     </div>
                                     <div>
-                                        <p class="text-xs font-bold text-slate-800 leading-tight">{{ $item->product_name }}</p>
-                                        <p class="text-[9px] text-slate-400 uppercase tracking-widest mt-1 font-bold">Code: CS-{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</p>
+                                        <p class="text-sm font-black text-slate-900 leading-tight">{{ $item->perfume->name ?? $item->product_name }}</p>
+                                        <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1.5 font-bold bg-slate-50 px-2 py-0.5 rounded inline-block">Size: {{ $item->size }}</p>
                                     </div>
                                 </div>
                             </td>
