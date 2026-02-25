@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | Chic Scents</title>
+    <title>Admin Login | ScentCepts</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +17,7 @@
     <div class="max-w-md w-full">
         <!-- Logo/Header -->
         <div class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl serif-heading tracking-[0.2em] uppercase font-light mb-2 text-slate-900">Chic Scents</h1>
+            <h1 class="text-3xl md:text-4xl serif-heading tracking-[0.2em] uppercase font-light mb-2 text-slate-900">ScentCepts</h1>
             <p class="text-[10px] uppercase tracking-[0.4em] text-gold-deep">Administrator Portal</p>
         </div>
 
@@ -58,7 +58,7 @@
 
         <!-- Footer Note -->
         <p class="mt-8 text-center text-[10px] text-slate-400 uppercase tracking-widest">
-            &copy; {{ date('Y') }} Chic Scents Kenya. Secure Environment.
+            &copy; {{ date('Y') }} ScentCepts Kenya. Secure Environment.
         </p>
     </div>
 </body>
