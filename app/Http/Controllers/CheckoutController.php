@@ -104,6 +104,8 @@ class CheckoutController extends Controller
         try {
             DB::beginTransaction();
 
+            \Log::info('Attempting to save order for: ' . $validated['email']);
+
             // 1. Save Order to Database
             $order = Order::create([
                 'user_id'         => Auth::id(),
@@ -126,6 +128,8 @@ class CheckoutController extends Controller
                 'notes'           => $validated['notes'],
             ]);
 
+            \Log::info('Order saved with ID: ' . $order->id);
+
             // 2. Save Order Items
             foreach ($dbItems as $item) {
                 OrderItem::create([
@@ -138,6 +142,7 @@ class CheckoutController extends Controller
             }
 
             DB::commit();
+            \Log::info('Transaction committed for order: ' . $order->id);
 
             // ── Build WhatsApp message ──────────────────────────────────────────────
             $lines = [];
@@ -204,6 +209,7 @@ class CheckoutController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error('Checkout Error: ' . $e->getMessage());
             return back()->with('error', 'Something went wrong while processing your order: ' . $e->getMessage());
         }
     }
